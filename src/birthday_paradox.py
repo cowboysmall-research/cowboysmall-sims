@@ -35,15 +35,14 @@ def main(argv):
         plot = False
 
 
+    numbers = []
     counter = 0
     for _ in xrange(iterations):
+        numbers.append(do_simulation_distribution())
         if do_simulation_probability(people):
             counter += 1
 
 
-    numbers = []
-    for _ in xrange(iterations):
-        numbers.append(do_simulation_distribution())
     numbers = sorted(numbers)
 
 
