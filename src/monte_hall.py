@@ -24,7 +24,6 @@ def do_simulation(choice, jump = False):
     return doors[car] == 2
 
 
-
 def main(argv):
     iterations = int(argv[0])
 
@@ -41,12 +40,11 @@ def main(argv):
     print 'Monte Hall - %s iterations' % (iterations)
     print
     print 'Correct without jumping: %8d' % (counter1)
-    print '                  Ratio: %8f' % (counter1 / float(iterations))
+    print '            Probability: %8f' % (counter1 / float(iterations))
     print
     print '   Correct with jumping: %8d' % (counter2)
-    print '                  Ratio: %8f' % (counter2 / float(iterations))
+    print '            Probability: %8f' % (counter2 / float(iterations))
     print
-
 
 
 if __name__ == "__main__":

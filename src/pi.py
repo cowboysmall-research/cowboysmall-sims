@@ -2,6 +2,7 @@ import sys
 import random
 
 
+
 def do_simulation(iterations):
     total = 0
 
@@ -29,3 +30,4 @@ def main(argv):
 
 if __name__ == "__main__":
     main(sys.argv[1:])
+
