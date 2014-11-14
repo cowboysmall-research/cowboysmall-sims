@@ -11,7 +11,6 @@ def simulation(iterations):
         if abs(x + dx) < 1 and abs(y + dy) < 1:
             x += dx
             y += dy
-
         if (x ** 2) + (y ** 2) < 1:
             total += 1
 
