@@ -17,8 +17,8 @@ def print_results(total, iterations):
     print
     print 'Pi - %s iterations' % (iterations)
     print
-    print 'Total: %8d' % (total)
-    print '   Pi: %8f' % (total * 4 / float(iterations))
+    print ' Total: %8d' % (total)
+    print '    Pi: %8f' % (total * 4 / float(iterations))
     print
 
 

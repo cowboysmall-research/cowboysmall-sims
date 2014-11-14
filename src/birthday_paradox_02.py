@@ -35,7 +35,7 @@ def plot_results(numbers):
     plt.hist(numbers, bins = (np.max(numbers) - np.min(numbers)), normed = True)
     plt.title('Birthday Paradox - Histogram')
     plt.xlabel('Number')
-    plt.ylabel('Probability')
+    plt.ylabel('Proportion')
     plt.show()
 
 

@@ -28,10 +28,10 @@ def print_results(counter1, counter2, iterations):
     print 'Monte Hall - %s iterations' % (iterations)
     print
     print 'Correct without jumping: %8d' % (counter1)
-    print '            Probability: %8f' % (counter1 / float(iterations))
+    print '             Proportion: %8f' % (counter1 / float(iterations))
     print
     print '   Correct with jumping: %8d' % (counter2)
-    print '            Probability: %8f' % (counter2 / float(iterations))
+    print '             Proportion: %8f' % (counter2 / float(iterations))
     print
 
 
