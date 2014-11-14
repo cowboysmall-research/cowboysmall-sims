@@ -2,23 +2,18 @@ import sys
 import random
 
 
-
-def do_simulation(iterations):
+def simulation(iterations):
     total = 0
 
     for _ in xrange(iterations):
         x, y = random.random(), random.random()
-        if (x ** 2) + (y ** 2) <= 1:
+        if (x ** 2) + (y ** 2) < 1:
             total += 1
 
     return total
 
 
-def main(argv):
-    iterations = int(argv[0])
-
-    total = do_simulation(iterations)
-
+def print_results(total, iterations):
     print
     print 'Pi - %s iterations' % (iterations)
     print
@@ -27,7 +22,11 @@ def main(argv):
     print
 
 
+def main(argv):
+    iterations = int(argv[0])
+
+    print_results(simulation(iterations), iterations)
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])
-

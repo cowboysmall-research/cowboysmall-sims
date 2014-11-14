@@ -2,8 +2,7 @@ import sys
 import random
 
 
-
-def do_simulation(choice, jump = False):
+def simulation(choice, jump = False):
     doors = [0] * 3
     car   = random.randint(0, 2)
 
@@ -24,18 +23,7 @@ def do_simulation(choice, jump = False):
     return doors[car] == 2
 
 
-def main(argv):
-    iterations = int(argv[0])
-
-    counter1 = 0
-    counter2 = 0
-    for _ in xrange(iterations):
-        if do_simulation(random.randint(0, 2)):
-            counter1 += 1
-        if do_simulation(random.randint(0, 2), True):
-            counter2 += 1
-
-
+def print_results(counter1, counter2, iterations):
     print
     print 'Monte Hall - %s iterations' % (iterations)
     print
@@ -45,6 +33,20 @@ def main(argv):
     print '   Correct with jumping: %8d' % (counter2)
     print '            Probability: %8f' % (counter2 / float(iterations))
     print
+
+
+def main(argv):
+    iterations = int(argv[0])
+
+    counter1 = 0
+    counter2 = 0
+    for _ in xrange(iterations):
+        if simulation(random.randint(0, 2)):
+            counter1 += 1
+        if simulation(random.randint(0, 2), True):
+            counter2 += 1
+
+    print_results(counter1, counter2, iterations)
 
 
 if __name__ == "__main__":
