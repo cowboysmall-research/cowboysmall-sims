@@ -2,7 +2,7 @@ import sys
 import random
 
 import numpy             as np
-# import scipy.stats       as st
+import scipy.stats       as st
 import matplotlib.pyplot as plt
 
 
@@ -26,17 +26,19 @@ def print_results(numbers, iterations):
     print '   Mean : %5.2f' % (np.mean(numbers))
     print '    Std : %5.2f' % (np.std(numbers))
     print ' Median : %5d'   % (np.median(numbers))
-    # print '   Mode : %5d'   % (st.mode(numbers)[0][0])
+    print '   Mode : %5d'   % (st.mode(numbers)[0][0])
     print
 
 
 def plot_results(numbers):
+    plt.clf()
     plt.figure(1, facecolor = 'w')
     plt.hist(numbers, bins = (np.max(numbers) - np.min(numbers)), normed = True)
     plt.title('Birthday Paradox - Histogram')
     plt.xlabel('Number')
     plt.ylabel('Proportion')
-    plt.show()
+    plt.savefig('./src/sim3/images/birthday_paradox_%s.png' % len(numbers), format = 'png')
+    plt.close()
 
 
 def main(argv):
