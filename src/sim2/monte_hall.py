@@ -15,7 +15,7 @@ def simulation(choice, jump = False):
     doors[reveal] = -1
 
     if jump:
-        for i in xrange(len(doors)):
+        for i in range(len(doors)):
             if i != choice and doors[i] != -1:
                 doors[choice] -= 1
                 doors[i]      += 1 
@@ -24,15 +24,15 @@ def simulation(choice, jump = False):
 
 
 def print_results(counter1, counter2, iterations):
-    print
-    print 'Monte Hall - %s iterations' % (iterations)
-    print
-    print 'Correct without jumping: %8d' % (counter1)
-    print '             Proportion: %8f' % (counter1 / float(iterations))
-    print
-    print '   Correct with jumping: %8d' % (counter2)
-    print '             Proportion: %8f' % (counter2 / float(iterations))
-    print
+    print()
+    print('Monte Hall - %s iterations' % (iterations))
+    print()
+    print('Correct without jumping: %8d' % (counter1))
+    print('             Proportion: %8f' % (counter1 / float(iterations)))
+    print()
+    print('   Correct with jumping: %8d' % (counter2))
+    print('             Proportion: %8f' % (counter2 / float(iterations)))
+    print()
 
 
 def main(argv):
@@ -40,7 +40,7 @@ def main(argv):
 
     counter1 = 0
     counter2 = 0
-    for _ in xrange(iterations):
+    for _ in range(iterations):
         if simulation(random.randint(0, 2)):
             counter1 += 1
         if simulation(random.randint(0, 2), True):

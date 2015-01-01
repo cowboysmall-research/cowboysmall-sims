@@ -5,7 +5,7 @@ import random
 def simulation(iterations):
     total = 0
 
-    for _ in xrange(iterations):
+    for _ in range(iterations):
         x, y = random.random(), random.random()
         if (x ** 2) + (y ** 2) < 1:
             total += 1
@@ -14,12 +14,12 @@ def simulation(iterations):
 
 
 def print_results(total, iterations):
-    print
-    print 'Pi - %s iterations' % (iterations)
-    print
-    print ' Total: %8d' % (total)
-    print '    Pi: %8f' % (total * 4 / float(iterations))
-    print
+    print()
+    print('Pi - %s iterations' % (iterations))
+    print()
+    print(' Total: %8d' % (total))
+    print('    Pi: %8f' % (total * 4 / float(iterations)))
+    print()
 
 
 def main(argv):

@@ -5,19 +5,19 @@ import random
 def simulation(people):
     birthdays = set()
 
-    for _ in xrange(people):
+    for _ in range(people):
         birthdays.add(random.randint(0, 365))
 
     return len(birthdays) != people
 
 
 def print_results(people, counter, iterations):
-    print
-    print 'Birthday Paradox - %s iterations' % (iterations)
-    print
-    print '     People : %5d'   % (people)
-    print ' Proportion : %5.2f' % (counter / float(iterations))
-    print
+    print()
+    print('Birthday Paradox - %s iterations' % (iterations))
+    print()
+    print('     People : %5d'   % (people))
+    print(' Proportion : %5.2f' % (counter / float(iterations)))
+    print()
 
 
 def main(argv):
@@ -25,7 +25,7 @@ def main(argv):
     iterations = int(argv[1])
 
     counter = 0
-    for _ in xrange(iterations):
+    for _ in range(iterations):
         if simulation(people):
             counter += 1
 

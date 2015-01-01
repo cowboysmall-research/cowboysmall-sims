@@ -6,7 +6,7 @@ def simulation(iterations):
     total = 0
 
     x, y = 0, 0
-    for _ in xrange(iterations):
+    for _ in range(iterations):
         dx, dy = random.gauss(0, 0.25), random.gauss(0, 0.25)
         if abs(x + dx) < 1 and abs(y + dy) < 1:
             x += dx
@@ -18,12 +18,12 @@ def simulation(iterations):
 
 
 def print_results(total, iterations):
-    print
-    print 'Pi - %s iterations' % (iterations)
-    print
-    print ' Total: %8d' % (total)
-    print '    Pi: %8f' % (total * 4 / float(iterations))
-    print
+    print()
+    print('Pi - %s iterations' % (iterations))
+    print()
+    print(' Total: %8d' % (total))
+    print('    Pi: %8f' % (total * 4 / float(iterations)))
+    print()
 
 
 def main(argv):

@@ -18,16 +18,16 @@ def simulation():
 
 
 def print_results(numbers, iterations):
-    print
-    print 'Birthday Paradox - %s iterations' % (iterations)
-    print
-    print '    Min : %5d'   % (np.min(numbers))
-    print '    Max : %5d'   % (np.max(numbers))
-    print '   Mean : %5.2f' % (np.mean(numbers))
-    print '    Std : %5.2f' % (np.std(numbers))
-    print ' Median : %5d'   % (np.median(numbers))
-    print '   Mode : %5d'   % (st.mode(numbers)[0][0])
-    print
+    print()
+    print('Birthday Paradox - %s iterations' % (iterations))
+    print()
+    print('    Min : %5d'   % (np.min(numbers)))
+    print('    Max : %5d'   % (np.max(numbers)))
+    print('   Mean : %5.2f' % (np.mean(numbers)))
+    print('    Std : %5.2f' % (np.std(numbers)))
+    print(' Median : %5d'   % (np.median(numbers)))
+    print('   Mode : %5d'   % (st.mode(numbers)[0][0]))
+    print()
 
 
 def plot_results(numbers):
@@ -45,7 +45,7 @@ def main(argv):
     iterations = int(argv[0])
 
     numbers = []
-    for _ in xrange(iterations):
+    for _ in range(iterations):
         numbers.append(simulation())
 
     print_results(numbers, iterations)
