@@ -9,8 +9,8 @@ def simulation(heads, tosses, bias):
     while True:
         total += 1
 
-        # if random.random() < bias:
-        if random.uniform(0.0, 1.0) < bias:
+        if random.random() < bias:
+        # if random.uniform(0.0, 1.0) < bias:
             count += 1
         else:
             count  = 0
