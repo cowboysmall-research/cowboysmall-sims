@@ -24,14 +24,24 @@ def print_results(numbers, iterations):
     print(' iterations: %8d' % (iterations))
     print()
     print('        Min: %8d'   % (np.min(numbers)))
-    print('       25th: %8d'   % (np.percentile(results, 25)))
+    print('       25th: %8d'   % (np.percentile(numbers, 25)))
     print('     Median: %8d'   % (np.median(numbers)))
-    print('       75th: %8d'   % (np.percentile(results, 75)))
+    print('       75th: %8d'   % (np.percentile(numbers, 75)))
     print('        Max: %8d'   % (np.max(numbers)))
     print()
     print('       Mean: %8.5f' % (np.mean(numbers)))
     print('        Std: %8.5f' % (np.std(numbers)))
     print('       Mode: %8d'   % (st.mode(numbers)[0][0]))
+    print()
+
+
+def print_prob(numbers, people):
+    prob = np.sum(np.bincount(np.array(numbers))[0:people + 1]) / len(numbers)
+    print()
+    if people < 10:
+        print('  P(X <= %d): %8.5f' % (people, prob))
+    else:
+        print(' P(X <= %2d): %8.5f' % (people, prob))
     print()
 
 
@@ -48,12 +58,15 @@ def plot_results(numbers):
 
 def main(argv):
     iterations = int(argv[0])
+    people     = int(argv[1])
 
     numbers = []
     for _ in range(iterations):
         numbers.append(simulation())
 
     print_results(numbers, iterations)
+    print_prob(numbers, people)
+
     plot_results(numbers)
 
 

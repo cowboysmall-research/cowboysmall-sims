@@ -23,8 +23,8 @@ def print_results(people, counter, iterations):
 
 
 def main(argv):
-    people     = int(argv[0])
-    iterations = int(argv[1])
+    iterations = int(argv[0])
+    people     = int(argv[1])
 
     counter = 0
     for _ in range(iterations):
