@@ -26,8 +26,8 @@ def print_results(heads, tosses, counter, iterations):
     print()
     print('Coin Toss')
     print()
-    print('  iterations: %8d'    % (iterations))
-    print('       heads: %8d'    % (heads))
+    print('  iterations: %8d' % (iterations))
+    print('       heads: %8d' % (heads))
     print()
     if tosses < 10:
         print('    E[X > %d]: %8.5f' % (tosses, counter / float(iterations)))

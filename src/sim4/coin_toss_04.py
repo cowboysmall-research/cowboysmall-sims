@@ -32,7 +32,7 @@ def print_results(results):
     print()
     print('Coin Toss')
     print()
-    print('  iterations: %8d' % (len(results)))
+    print('  iterations: %8d'   % (len(results)))
     print()
     print('         Min: %8d'   % (np.min(results)))
     print('        25th: %8d'   % (np.percentile(results, 25)))
