@@ -48,7 +48,7 @@ def print_prob(numbers, people):
 def plot_results(numbers):
     plt.clf()
     plt.figure(1, facecolor = 'w')
-    plt.hist(numbers, bins = (np.max(numbers) - np.min(numbers)), normed = True)
+    plt.hist(numbers, color = 'white', bins = (np.max(numbers) - np.min(numbers)) / 2, normed = True)
     plt.title('Birthday Paradox - Histogram')
     plt.xlabel('Number')
     plt.ylabel('Proportion')

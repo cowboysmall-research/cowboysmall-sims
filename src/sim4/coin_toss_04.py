@@ -61,7 +61,7 @@ def print_prob(results, tosses):
 def plot_results(results, heads, bias):
     plt.clf()
     plt.figure(1, facecolor = 'w')
-    plt.hist(results, bins = (np.max(results) - np.min(results)), normed = True)
+    plt.hist(results, color = 'white', bins = (np.max(results) - np.min(results)) / 2, normed = True)
     plt.title('Coint Toss: %s heads in a row - Histogram' % heads)
     plt.xlabel('Tosses')
     plt.ylabel('Proportion')
