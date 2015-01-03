@@ -20,12 +20,12 @@ def print_results(heads, tosses, prob):
     print()
     print('Coin Toss')
     print()
-    print('       heads: %d' % (heads))
+    print('       heads: %8d' % (heads))
     print()
     if tosses < 10:
-        print('    P(X > %d): %5.5f' % (tosses, prob))
+        print('    P(X > %d): %8.5f' % (tosses, prob))
     else:
-        print('   P(X > %2d): %5.5f' % (tosses, prob))
+        print('   P(X > %2d): %8.5f' % (tosses, prob))
     print()
 
 

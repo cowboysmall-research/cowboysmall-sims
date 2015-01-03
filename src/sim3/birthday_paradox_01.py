@@ -15,10 +15,10 @@ def print_results(people, counter, iterations):
     print()
     print('Birthday Paradox')
     print()
-    print(' iterations: %s' % (iterations))
+    print(' iterations: %8d' % (iterations))
     print()
-    print('     People: %5d'   % (people))
-    print(' Proportion: %5.2f' % (counter / float(iterations)))
+    print('     People: %8d'   % (people))
+    print(' Proportion: %8.5f' % (counter / float(iterations)))
     print()
 
 

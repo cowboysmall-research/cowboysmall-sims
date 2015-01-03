@@ -26,13 +26,13 @@ def print_results(heads, tosses, counter, iterations):
     print()
     print('Coin Toss')
     print()
-    print('  iterations: %s' % (iterations))
-    print('       heads: %d' % (heads))
+    print('  iterations: %8d' % (iterations))
+    print('       heads: %8d' % (heads))
     print()
     if tosses < 10:
-        print('    P(X > %d): %5.5f' % (tosses, counter / float(iterations)))
+        print('    P(X > %d): %8.5f' % (tosses, counter / float(iterations)))
     else:
-        print('   P(X > %2d): %5.5f' % (tosses, counter / float(iterations)))
+        print('   P(X > %2d): %8.5f' % (tosses, counter / float(iterations)))
     print()
 
 
