@@ -19,14 +19,19 @@ def simulation():
 
 def print_results(numbers, iterations):
     print()
-    print('Birthday Paradox - %s iterations' % (iterations))
+    print('Birthday Paradox')
     print()
-    print('    Min : %5d'   % (np.min(numbers)))
-    print('    Max : %5d'   % (np.max(numbers)))
-    print('   Mean : %5.2f' % (np.mean(numbers)))
-    print('    Std : %5.2f' % (np.std(numbers)))
-    print(' Median : %5d'   % (np.median(numbers)))
-    print('   Mode : %5d'   % (st.mode(numbers)[0][0]))
+    print(' iterations: %s' % (iterations))
+    print()
+    print('        Min: %5d'   % (np.min(numbers)))
+    print('       25th: %5d'   % (np.percentile(results, 25)))
+    print('     Median: %5d'   % (np.median(numbers)))
+    print('       75th: %5d'   % (np.percentile(results, 75)))
+    print('        Max: %5d'   % (np.max(numbers)))
+    print()
+    print('       Mean: %5.2f' % (np.mean(numbers)))
+    print('        Std: %5.2f' % (np.std(numbers)))
+    print('       Mode: %5d'   % (st.mode(numbers)[0][0]))
     print()
 
 

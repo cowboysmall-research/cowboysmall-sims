@@ -13,10 +13,12 @@ def simulation(people):
 
 def print_results(people, counter, iterations):
     print()
-    print('Birthday Paradox - %s iterations' % (iterations))
+    print('Birthday Paradox')
     print()
-    print('     People : %5d'   % (people))
-    print(' Proportion : %5.2f' % (counter / float(iterations)))
+    print(' iterations: %s' % (iterations))
+    print()
+    print('     People: %5d'   % (people))
+    print(' Proportion: %5.2f' % (counter / float(iterations)))
     print()
 
 
