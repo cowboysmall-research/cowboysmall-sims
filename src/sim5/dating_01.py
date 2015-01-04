@@ -43,7 +43,7 @@ def plot_results(results, pool_size):
     plt.figure(1, facecolor = 'w')
     plt.hist(results, color = 'white', bins = (np.max(results) - np.min(results)) / 2, normed = True)
     plt.title('Dating Game (uniformly distributed salaries)')
-    plt.xlabel('Married')
+    plt.xlabel('Dating')
     plt.ylabel('Proportion')
     plt.savefig('./src/sim5/images/dating_uniform_%s_%s.png' % (pool_size, len(results)), format = 'png')
     plt.close()
