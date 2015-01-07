@@ -20,7 +20,7 @@ def simulation(men, women, pool_size):
 
 def print_results(results):
     print()
-    print('Dating Game (evenly distributed salaries)')
+    print('Dating Game (evenly distributed qualities)')
     print()
     print('           Minimum: %s' % (np.amin(results)))
     print('   25th Percentile: %s' % (np.percentile(results, 25)))
@@ -38,11 +38,11 @@ def print_results(results):
 def plot_results(results, pool_size):
     plt.clf()
     plt.figure(1, facecolor = 'w')
-    plt.hist(results, color = 'white', bins = (np.max(results) - np.min(results)) / 2, normed = True)
-    plt.title('Dating Game (evenly distributed salaries)')
-    plt.xlabel('Salary')
+    plt.hist(results, color = 'white', bins = (np.max(results) - np.min(results)), normed = True)
+    plt.title('Dating Game (evenly distributed qualities)')
+    plt.xlabel('Quality')
     plt.ylabel('Proportion')
-    plt.savefig('./src/sim5/images/salary_even_%s_%s.png' % (pool_size, len(results)), format = 'png')
+    plt.savefig('./src/sim5/images/quality_even_%s_%s.png' % (pool_size, len(results)), format = 'png')
     plt.close()
 
 
@@ -53,8 +53,8 @@ def main(argv):
 
     results = []
     for _ in range(iterations):
-        men     = [200 * (float(val) / pool_size) for val in range(pool_size)]
-        women   = [200 * (float(val) / pool_size) for val in range(pool_size)]
+        men     = [100 * (float(val) / pool_size) for val in range(pool_size)]
+        women   = [100 * (float(val) / pool_size) for val in range(pool_size)]
         results.append(simulation(men, women, pool_size))
 
     print_results(results)
