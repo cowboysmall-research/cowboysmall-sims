@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 
 def simulation(men, women, pool_size):
     while len(men) > 0 and max(men) > min(women):
-        random.shuffle(men)
-        random.shuffle(women)
+        np.random.shuffle(men)
+        np.random.shuffle(women)
         for man, woman in zip(men, women):
             if man > woman:
                 men.remove(man)
@@ -50,6 +50,8 @@ def plot_results(results, pool_size):
 def main(argv):
     pool_size  = int(argv[0])
     iterations = int(argv[1])
+
+    np.random.seed(1337)
 
     results = []
     for _ in range(iterations):

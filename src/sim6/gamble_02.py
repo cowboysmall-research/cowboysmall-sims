@@ -50,6 +50,8 @@ def main(argv):
 
     count      = 0
 
+    random.seed(1337)
+
     for _ in range(iterations):
         if simulation(amount, margin):
             count += 1

@@ -38,6 +38,8 @@ def print_results(counter1, counter2, iterations):
 def main(argv):
     iterations = int(argv[0])
 
+    random.seed(1337)
+
     counter1 = 0
     counter2 = 0
     for _ in range(iterations):

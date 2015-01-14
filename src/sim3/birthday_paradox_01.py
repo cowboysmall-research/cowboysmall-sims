@@ -26,6 +26,8 @@ def main(argv):
     iterations = int(argv[0])
     people     = int(argv[1])
 
+    random.seed(1337)
+
     counter = 0
     for _ in range(iterations):
         if simulation(people):

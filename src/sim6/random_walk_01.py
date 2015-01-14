@@ -2,7 +2,6 @@ import sys
 import random
 
 import numpy             as np
-import pandas            as pd
 import matplotlib.pyplot as plt
 
 
@@ -37,6 +36,8 @@ def plot_results(results, iterations):
 def main(argv):
     iterations = int(argv[0])
     initial    = int(argv[1])
+
+    random.seed(1337)
 
     results    = simulation(initial, iterations)
 

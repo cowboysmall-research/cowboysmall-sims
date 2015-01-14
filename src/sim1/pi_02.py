@@ -29,6 +29,8 @@ def print_results(total, iterations):
 def main(argv):
     iterations = int(argv[0])
 
+    random.seed(1337)
+
     print_results(simulation(iterations), iterations)
 
 

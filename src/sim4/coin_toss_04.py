@@ -80,6 +80,8 @@ def main(argv):
     else:
         bias = 0.5
 
+    random.seed(1337)
+
     results = simulation(iterations, heads, bias)
 
     print_results(results)

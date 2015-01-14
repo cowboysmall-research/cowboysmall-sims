@@ -2,7 +2,7 @@ import sys
 import random
 
 
-def simulation(heads, tosses, bias):
+def simulation(heads, bias):
     total = 0
     count = 0
 
@@ -22,17 +22,14 @@ def simulation(heads, tosses, bias):
 
 
 
-def print_results(heads, tosses, counter, iterations):
+def print_results(heads, counter, iterations):
     print()
     print('Coin Toss')
     print()
     print('  iterations: %8d' % (iterations))
     print('       heads: %8d' % (heads))
     print()
-    if tosses < 10:
-        print('    E[X > %d]: %8.5f' % (tosses, counter / float(iterations)))
-    else:
-        print('   E[X > %2d]: %8.5f' % (tosses, counter / float(iterations)))
+    print('Expected number of tosses to get %d heads in a row: %8.5f' % (heads, counter / float(iterations)))
     print()
 
 
@@ -40,18 +37,19 @@ def print_results(heads, tosses, counter, iterations):
 def main(argv):
     iterations = int(argv[0])
     heads      = int(argv[1])
-    tosses     = int(argv[2])
 
     if len(argv) == 4:
-        bias = float(argv[3])
+        bias = float(argv[2])
     else:
         bias = 0.5
 
+    random.seed(1337)
+
     counter = 0
     for _ in range(iterations):
-        counter += simulation(heads, tosses, bias)
+        counter += simulation(heads, bias)
 
-    print_results(heads, tosses, counter, iterations)
+    print_results(heads, counter, iterations)
 
 
 

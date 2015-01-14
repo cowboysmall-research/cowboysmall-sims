@@ -2,7 +2,6 @@ import sys
 import random
 
 import numpy             as np
-import pandas            as pd
 import matplotlib.pyplot as plt
 
 
@@ -25,6 +24,7 @@ def main(argv):
     margin     = int(argv[2])
     target     = initial + margin
 
+    np.random.seed(1337)
 
     results        = np.zeros((iterations, 3))
     results[:, 0]  = np.random.sample(iterations)

@@ -60,6 +60,8 @@ def main(argv):
     iterations = int(argv[0])
     people     = int(argv[1])
 
+    random.seed(1337)
+
     numbers = []
     for _ in range(iterations):
         numbers.append(simulation())

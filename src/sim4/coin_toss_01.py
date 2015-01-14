@@ -47,6 +47,8 @@ def main(argv):
     else:
         bias = 0.5
 
+    random.seed(1337)
+
     counter = 0
     for _ in range(iterations):
         if simulation(heads, tosses, bias):
