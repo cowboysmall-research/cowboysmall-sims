@@ -23,7 +23,7 @@ def simulation(men, women, pool_size):
 
 def print_results(results):
     print()
-    print('Dating Game (normaly distributed salaries)')
+    print('Dating Game (normaly distributed qualities)')
     print()
     print('           Minimum: %s' % (np.amin(results)))
     print('   25th Percentile: %s' % (np.percentile(results, 25)))
@@ -42,7 +42,7 @@ def plot_results(results, pool_size):
     plt.clf()
     plt.figure(1, facecolor = 'w')
     plt.hist(results, color = 'white', bins = (np.max(results) - np.min(results)) / 2, normed = True)
-    plt.title('Dating Game (normaly distributed salaries)')
+    plt.title('Dating Game (normaly distributed qualities)')
     plt.xlabel('Dating')
     plt.ylabel('Proportion')
     plt.savefig('./src/sim5/images/dating_normal_%s_%s.png' % (pool_size, len(results)), format = 'png')
@@ -56,8 +56,8 @@ def main(argv):
 
     results = []
     for _ in range(iterations):
-        men     = np.random.normal(100, 33, pool_size).tolist()
-        women   = np.random.normal(100, 33, pool_size).tolist()
+        men     = np.random.normal(50, 17, pool_size).tolist()
+        women   = np.random.normal(50, 17, pool_size).tolist()
         results.append(simulation(men, women, pool_size))
 
     print_results(results)
