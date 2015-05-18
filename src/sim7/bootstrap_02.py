@@ -34,7 +34,7 @@ def main(argv):
     size       = int(argv[2])
     iterations = int(argv[3])
 
-    # np.random.seed(1337)
+    np.random.seed(1337)
 
     data    = np.random.normal(mean, std, size)
     samples = bootstrap(data, size, iterations)

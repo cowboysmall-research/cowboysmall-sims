@@ -1,17 +1,20 @@
 import sys
 import random
 
+import numpy as np
+
+
 
 def switch_strategy_simulation(count):
     prisoners = [0] * count
-    leader    = random.randint(0, count - 1)
+    leader    = np.random.choice(count)
 
     switch    = 0
     days      = 0
 
     while prisoners[leader] < count - 1:
         days += 1
-        p = random.randint(0, count - 1)
+        p     = np.random.choice(count)
         if p == leader:
             if switch == 1:
                 switch        = 0
@@ -33,9 +36,11 @@ def print_results(days):
 
 def main(argv):
     count = int(argv[0])
-    days  = switch_strategy_simulation(count)
 
-    print_results(days)
+    np.random.seed(1337)
+
+    print_results(switch_strategy_simulation(count))
+
 
 
 if __name__ == "__main__":
