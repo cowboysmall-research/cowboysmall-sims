@@ -15,6 +15,7 @@ def switch_strategy_simulation(count):
     while prisoners[leader] < count - 1:
         days += 1
         p     = np.random.choice(count)
+
         if p == leader:
             if switch == 1:
                 switch        = 0
