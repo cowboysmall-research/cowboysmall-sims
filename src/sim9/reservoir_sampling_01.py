@@ -62,7 +62,7 @@ def main(argv):
     size    = int(argv[0])
     k       = int(argv[1])
 
-    # np.random.seed(1337)
+    np.random.seed(1337)
 
     data    = np.random.randint(1, size, size)
     results = reservoir_sampling(data, size, k)
