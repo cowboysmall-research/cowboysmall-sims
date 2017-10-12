@@ -48,11 +48,11 @@ def print_prob(numbers, people):
 def plot_results(numbers):
     plt.clf()
     plt.figure(1, facecolor = 'w')
-    plt.hist(numbers, color = 'white', bins = (np.max(numbers) - np.min(numbers)) / 2, normed = True)
+    plt.hist(numbers, color = 'white', bins = int((np.max(numbers) - np.min(numbers)) / 2), normed = True)
     plt.title('Birthday Paradox - Histogram')
     plt.xlabel('Number')
     plt.ylabel('Proportion')
-    plt.savefig('./src/sim3/images/birthday_paradox_%s.png' % len(numbers), format = 'png')
+    plt.savefig('./src/simulation_03/images/birthday_paradox_%s.png' % len(numbers), format = 'png')
     plt.close()
 
 

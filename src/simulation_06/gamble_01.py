@@ -13,7 +13,7 @@ def plot_results(results, iterations, initial, margin):
     plt.title('Gamble: %s iterations' % iterations)
     plt.xlabel('Index')
     plt.ylabel('Value')
-    plt.savefig('./src/sim6/images/gamble_%s_%s_%s.png' % (iterations, initial, margin), format = 'png')
+    plt.savefig('./src/simulation_06/images/gamble_%s_%s_%s.png' % (iterations, initial, margin), format = 'png')
     plt.close()
 
 

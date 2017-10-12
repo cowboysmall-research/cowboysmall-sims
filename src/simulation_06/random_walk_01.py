@@ -28,7 +28,7 @@ def plot_results(results, iterations):
     plt.title('Random Walk: %s iterations' % iterations)
     plt.xlabel('Index')
     plt.ylabel('Value')
-    plt.savefig('./src/sim6/images/random_walk_%s.png' % (iterations), format = 'png')
+    plt.savefig('./src/simulation_06/images/random_walk_%s.png' % (iterations), format = 'png')
     plt.close()
 
 

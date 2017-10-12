@@ -25,6 +25,8 @@ def reservoir_sampling(data, size, k):
 
 def print_results(results, data, k):
     print()
+    print('            Reservoir Sampling:')
+    print()
     print('       Population Distribution:')
     print()
     print('                          mean: %10.5g' % np.mean(data))
@@ -54,7 +56,7 @@ def plot_results(results, size, k):
     plt.title('Reservoir Samples (k = %s)' % (k))
     plt.xlabel('Sample Mean')
     plt.ylabel('Proportion')
-    plt.savefig('./src/sim9/images/reservoir_sampling_%s_%s.png' % (size, k), format = 'png')
+    plt.savefig('./src/simulation_09/images/reservoir_sampling_%s_%s.png' % (size, k), format = 'png')
     plt.close()
 
 

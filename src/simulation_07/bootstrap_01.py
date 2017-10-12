@@ -56,7 +56,7 @@ def plot_results(samples, size, iterations, statistic):
     plt.title('Bootstrapped Samples (%s)' % (statistic))
     plt.xlabel('Samples')
     plt.ylabel('Proportion')
-    plt.savefig('./src/sim7/images/bootstrap_%s_%s_%s.png' % ('_'.join(statistic.split()), size, iterations), format = 'png')
+    plt.savefig('./src/simulation_07/images/bootstrap_%s_%s_%s.png' % ('_'.join(statistic.split()), size, iterations), format = 'png')
     plt.close()
 
 

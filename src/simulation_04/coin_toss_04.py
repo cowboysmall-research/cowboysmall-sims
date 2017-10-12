@@ -65,7 +65,7 @@ def plot_results(results, heads, bias):
     plt.title('Coint Toss: %s heads in a row - Histogram' % heads)
     plt.xlabel('Tosses')
     plt.ylabel('Proportion')
-    plt.savefig('./src/sim4/images/coin_toss_%s_%s_%s.png' % (heads, bias, len(results)), format = 'png')
+    plt.savefig('./src/simulation_04/images/coin_toss_%s_%s_%s.png' % (heads, bias, len(results)), format = 'png')
     plt.close()
 
 

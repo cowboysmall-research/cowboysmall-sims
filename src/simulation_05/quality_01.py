@@ -42,7 +42,7 @@ def plot_results(results, pool_size):
     plt.title('Dating Game (uniformly distributed qualities)')
     plt.xlabel('Quality')
     plt.ylabel('Proportion')
-    plt.savefig('./src/sim5/images/quality_uniform_%s_%s.png' % (pool_size, len(results)), format = 'png')
+    plt.savefig('./src/simulation_05/images/quality_uniform_%s_%s.png' % (pool_size, len(results)), format = 'png')
     plt.close()
 
 

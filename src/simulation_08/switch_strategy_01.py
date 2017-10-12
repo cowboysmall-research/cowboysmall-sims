@@ -30,8 +30,9 @@ def switch_strategy_simulation(count):
 
 def print_results(days):
     print()
-    print('All Visited!')
-    print('After %s years and %s days' % (days // 365, days % 365))
+    print('Switch Strategy:')
+    print()
+    print('All visited after %s years and %s days' % (days // 365, days % 365))
     print()
 
 
