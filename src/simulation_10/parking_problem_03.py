@@ -9,7 +9,7 @@ def parking_problem(length):
 
     def find_spots(start, end):
         spot = np.random.uniform(start, end - 1.0)
-        spots.append((spot, spot + 1.0))
+        spots.append(spot)
 
         if spot - start >= 1.0:
             find_spots(start, spot)
@@ -58,7 +58,6 @@ def print_results(results):
 
 def plot_results(results):
     plt.clf()
-    # plt.figure(1, facecolor = 'w')
     plt.hist(results)
     plt.title('Parking Problem')
     plt.xlabel('Results')
