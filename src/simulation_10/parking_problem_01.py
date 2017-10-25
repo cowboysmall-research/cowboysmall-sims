@@ -1,21 +1,18 @@
 import sys
-import random
 
 import numpy as np
 
 
-SCALE = 100000
-
 
 def spots_available(spots, length):
-    if spots[0, 0] >= SCALE:
+    if spots[0, 0] >= 1.0:
         return True
 
     for i in range(spots.shape[0] - 1):
-        if spots[i + 1, 0] - spots[i, 1] >= SCALE:
+        if spots[i + 1, 0] - spots[i, 1] >= 1.0:
             return True
 
-    return length - spots[-1, 1] >= SCALE
+    return length - spots[-1, 1] >= 1.0
 
 
 
@@ -32,19 +29,18 @@ def spot_found(spot, spots, length):
 
 
 def get_parking(length):
-    spot = np.random.randint(length - SCALE)
-    return np.array([[spot, spot + SCALE]])
+    spot = np.random.uniform(0, length - 1.0)
+    return np.array([[spot, spot + 1.0]])
 
 
 
 def parking_problem(length):
-    scaled = length * SCALE
-    spots  = get_parking(scaled)
+    spots  = get_parking(length)
 
-    while spots_available(spots, scaled):
-        spot = get_parking(scaled)
+    while spots_available(spots, length):
+        spot = get_parking(length)
 
-        if spot_found(spot, spots, scaled):
+        if spot_found(spot, spots, length):
             spots = np.concatenate((spots, spot))
             spots = spots[spots[:, 0].argsort()]
 
@@ -79,8 +75,8 @@ def print_results(results):
     print()
     print('       Distribution:')
     print()
-    print('               mean: %0.4g' % np.mean(results))
-    print(' standard deviation: %0.4g' % np.std(results))
+    print('               mean: %0.10g' % np.mean(results))
+    print(' standard deviation: %0.10g' % np.std(results))
     print()
 
 
