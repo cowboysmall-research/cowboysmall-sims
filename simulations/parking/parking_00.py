@@ -7,51 +7,52 @@ import numpy as np
 
 
 def spots_available(spots, length):
-    if 0 <= spots[0] - 1.0:
+    if 0 <= spots[0, 0] - 1.0:
         return True
 
-    for i in range(len(spots) - 1):
-        if spots[i] + 1.0 <= spots[i + 1] - 1.0:
+    for i in range(spots.shape[0] - 1):
+        if spots[i, 1] <= spots[i + 1, 0] - 1.0:
             return True
 
-    return spots[-1] + 1 <= length - 1.0
+    return spots[-1, 1] <= length - 1.0
 
 
 
 def spot_found(spot, spots, length):
-    if 0 <= spot <= spots[0] - 1.0:
+    if 0 <= spot[0, 0] and spot[0, 1] <= spots[0, 0]:
         return True
 
-    for i in range(len(spots) - 1):
-        if spots[i] + 1.0 <= spot <= spots[i + 1] - 1.0:
+    for i in range(spots.shape[0] - 1):
+        if spots[i, 1] <= spot[0, 0] and spot[0, 1] <= spots[i + 1, 0]:
             return True
 
-    return spots[-1] + 1.0 <= spot <= length - 1.0
+    return spots[-1, 1] <= spot[0, 0] and spot[0, 1] <= length
 
 
 
 def get_parking(length):
-    return np.random.uniform(0, length)
+    spot = np.random.uniform(0, length)
+    return np.array([[spot, spot + 1.0]])
 
 
 
 def parking_problem(length):
-    spots = [get_parking(length)]
+    spots = get_parking(length)
     count = 0
 
     while spots_available(spots, length):
         spot = get_parking(length)
 
         if spot_found(spot, spots, length):
-            spots.append(spot)
-            spots.sort()
+            spots = np.concatenate((spots, spot))
+            spots = spots[spots[:, 0].argsort()]
 
         count += 1
 
         if count == 10000000:
             break
 
-    return len(spots) / float(length)
+    return spots.shape[0] / float(length)
 
 
 

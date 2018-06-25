@@ -1,4 +1,5 @@
 import sys
+import itertools
 
 import argparse
 
@@ -7,21 +8,31 @@ import matplotlib.pyplot as plt
 
 
 def parking_problem(length):
-    spots = []
+    indices = [i for i in range(length - 1)]
+    spots   = [0] * length
+    count   = 0
 
-    def find_spots(start, end):
-        spot = np.random.uniform(start, end - 1.0)
-        spots.append(spot)
+    while spots_available(spots) and indices:
+        spot = np.random.choice(indices, 1)[0]
+        if spots[spot] == 0 and spots[spot + 1] == 0:
+            spots[spot]     = 1
+            spots[spot + 1] = 1
+            indices.remove(spot)
+            if spot + 1 in indices:
+                indices.remove(spot + 1)
 
-        if spot - start >= 1.0:
-            find_spots(start, spot)
+        count += 1
 
-        if end - spot >= 2.0:
-            find_spots(spot + 1.0, end)
+        if count == 10000000:
+            break
 
-    find_spots(0, length)
+    return float(spots.count(1)) / float(length)
 
-    return len(spots) / float(length)
+
+
+def spots_available(spots):
+    c = [(x[0], len(list(x[1]))) for x in itertools.groupby(spots) if x[0] == 0]
+    return max(c, key = lambda x: x[1])[1] > 1 if len(c) > 0 else False
 
 
 
@@ -29,16 +40,16 @@ def simulation(iterations, length):
     results = []
 
     print()
-    print('    Parking Problem: running {} simulations...'.format(iterations))
+    print('    Parking Problem - Discrete Version: running {} simulations...'.format(iterations))
     print()
 
     for i in range(iterations):
         results.append(parking_problem(length))
-        print('                   : iteration {:5d}'.format(i + 1), end = '\r')
+        print('                                      : iteration {:5d}'.format(i + 1), end = '\r')
 
     print()
     print()
-    print('                   : simulations completed...')
+    print('                                      : simulations completed...')
     print()
 
     return results
@@ -48,12 +59,12 @@ def simulation(iterations, length):
 def print_results(results):
     print()
     print()
-    print('    Parking Problem: results')
+    print('    Parking Problem - Discrete Version: results')
     print()
-    print('       Distribution:')
+    print('                          Distribution:')
     print()
-    print('               mean: {:10.8f}'.format(np.mean(results)))
-    print(' standard deviation: {:10.8f}'.format(np.std(results)))
+    print('                                  mean: {:10.8f}'.format(np.mean(results)))
+    print('                    standard deviation: {:10.8f}'.format(np.std(results)))
     print()
 
 
@@ -61,9 +72,9 @@ def print_results(results):
 def plot_results(results):
     plt.clf()
     plt.hist(results)
-    plt.title('Parking Problem')
+    plt.title('Parking Problem - Discrete Version')
     plt.xlabel('Results')
-    plt.savefig('./images/parking/parking_{}.png'.format(len(results)), format = 'png')
+    plt.savefig('./images/parking/parking_discrete_{}.png'.format(len(results)), format = 'png')
     plt.close()
 
 
@@ -81,7 +92,7 @@ def main(args):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description = "A script that estimates the jamming limit for Renyi's Parking Problem")
+    parser = argparse.ArgumentParser(description = "A script that estimates the jamming limit for Renyi's Parking Problem - Discrete Version")
     parser.add_argument("-n", "--iterations",  dest = "iterations",  help = "the number of iterations to perform", required = True)
     parser.add_argument("-l", "--length", dest = "length", help = "the length of the interval", required = True)
     main(parser.parse_args())

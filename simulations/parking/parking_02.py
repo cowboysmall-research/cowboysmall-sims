@@ -3,47 +3,23 @@ import sys
 import argparse
 
 import numpy as np
-
-
-
-def spots_available(spots, length):
-    if spots[0] >= 1.0:
-        return True
-
-    for i in range(len(spots) - 1):
-        if spots[i + 1] - spots[i] >= 2.0:
-            return True
-
-    return length - spots[-1] >= 2.0
-
-
-
-def spot_found(spot, spots, length):
-    if 0 <= spot <= spots[0] - 1.0:
-        return True
-
-    for i in range(len(spots) - 1):
-        if spots[i] + 1.0 <= spot <= spots[i + 1] - 1.0:
-            return True
-
-    return spots[-1] + 1.0 <= spot <= length - 1.0
-
-
-
-def get_parking(length):
-    return np.random.uniform(0, length - 1.0)
-
+import matplotlib.pyplot as plt
 
 
 def parking_problem(length):
-    spots  = [get_parking(length)]
+    spots = []
 
-    while spots_available(spots, length):
-        spot = get_parking(length)
+    def find_spots(start, end):
+        spot = np.random.uniform(start, end)
+        spots.append(spot)
 
-        if spot_found(spot, spots, length):
-            spots.append(spot)
-            spots.sort()
+        if start <= spot - 1.0:
+            find_spots(start, spot - 1.0)
+
+        if spot + 1.0 <= end:
+            find_spots(spot + 1.0, end)
+
+    find_spots(0, length)
 
     return len(spots) / float(length)
 
@@ -76,9 +52,19 @@ def print_results(results):
     print()
     print('       Distribution:')
     print()
-    print('               mean: %0.10g' % np.mean(results))
-    print(' standard deviation: %0.10g' % np.std(results))
+    print('               mean: {:10.8f}'.format(np.mean(results)))
+    print(' standard deviation: {:10.8f}'.format(np.std(results)))
     print()
+
+
+
+def plot_results(results):
+    plt.clf()
+    plt.hist(results)
+    plt.title('Parking Problem')
+    plt.xlabel('Results')
+    plt.savefig('./images/parking/parking_{}.png'.format(len(results)), format = 'png')
+    plt.close()
 
 
 
@@ -86,7 +72,11 @@ def main(args):
     iterations = int(args.iterations)
     length     = int(args.length)
 
-    print_results(simulation(iterations, length))
+    results    = simulation(iterations, length)
+
+    print_results(results)
+    plot_results(results)
+
 
 
 
