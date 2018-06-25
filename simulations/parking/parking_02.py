@@ -82,7 +82,7 @@ def print_results(results):
 
 
 
-def main(argv):
+def main(args):
     iterations = int(args.iterations)
     length     = int(args.length)
 
