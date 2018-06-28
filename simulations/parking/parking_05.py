@@ -6,9 +6,7 @@ import numpy as np
 
 
 
-def spots_available(spots, length, overlap):
-    exclusion = 1.0 - overlap
-
+def spots_available(spots, length, exclusion):
     if 0 <= spots[0] - exclusion:
         return True
 
@@ -20,9 +18,7 @@ def spots_available(spots, length, overlap):
 
 
 
-def spot_found(spot, spots, length, overlap):
-    exclusion = 1.0 - overlap
-
+def spot_found(spot, spots, length, exclusion):
     if 0 <= spot <= spots[0] - exclusion:
         return True
 
@@ -60,10 +56,10 @@ def parking_problem(length, overlap):
     spots = [get_parking(length)]
     count = 0
 
-    while spots_available(spots, length, overlap):
+    while spots_available(spots, length, 1.0 - overlap):
         spot = get_parking(length)
 
-        if spot_found(spot, spots, length, overlap):
+        if spot_found(spot, spots, length, 1.0 - overlap):
             spots.append(spot)
             spots.sort()
 
@@ -81,16 +77,18 @@ def simulation(iterations, length, overlap):
     results = []
 
     print()
-    print('    Parking Problem: running {} simulations...'.format(iterations))
+    print('    Parking Problem - Overlap Version: running {} simulations'.format(iterations))
+    print()
+    print('                                    L: {:8d}'.format(length))
+    print('                              overlap: {:0.6f}'.format(overlap))
     print()
 
     for i in range(iterations):
         results.append(parking_problem(length, overlap))
-        print('                   : iteration {:5d}'.format(i + 1), end = '\r')
+        print('                            iteration: {:8d}'.format(i + 1), end = '\r')
 
+    print('                           iterations: {:8d}'.format(i + 1))
     print()
-    print()
-    print('                   : simulations completed...')
     print()
 
     return results
@@ -99,13 +97,11 @@ def simulation(iterations, length, overlap):
 
 def print_results(results):
     print()
-    print()
     print('    Parking Problem - Overlap Version: results')
     print()
-    print('                         Distribution:')
-    print()
-    print('                                 mean: {:10.8f}'.format(np.mean(results)))
-    print('                   standard deviation: {:10.8f}'.format(np.std(results)))
+    print('                         distribution:')
+    print('                                 mean: {:0.6f}'.format(np.mean(results)))
+    print('                   standard deviation: {:0.6f}'.format(np.std(results)))
     print()
 
 

@@ -7,9 +7,8 @@ import matplotlib.pyplot as plt
 
 
 
-def parking_problem(length, overlap):
-    exclusion = 1.0 - overlap
-    spots     = []
+def parking_problem(length, exclusion):
+    spots = []
 
     def find_spots(start, end):
         spot = np.random.uniform(start, end)
@@ -54,10 +53,10 @@ def simulation(iterations, length, overlap):
     print()
 
     for i in range(iterations):
-        results.append(parking_problem(length, overlap))
+        results.append(parking_problem(length, 1.0 - overlap))
         print('                            iteration: {:8d}'.format(i + 1), end = '\r')
 
-    print('                           iterations: {:8d}'.format(iterations), end = '\r')
+    print('                           iterations: {:8d}'.format(iterations))
     print()
 
     return results
@@ -66,12 +65,11 @@ def simulation(iterations, length, overlap):
 
 def print_results(results):
     print()
-    print()
     print('    Parking Problem - Overlap Version: results')
     print()
     print('                         distribution:')
-    print('                                 mean: {:10.8f}'.format(np.mean(results)))
-    print('                   standard deviation: {:10.8f}'.format(np.std(results)))
+    print('                                 mean: {:0.6f}'.format(np.mean(results)))
+    print('                   standard deviation: {:0.6f}'.format(np.std(results)))
     print()
 
 

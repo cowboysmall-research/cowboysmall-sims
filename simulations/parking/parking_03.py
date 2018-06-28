@@ -61,14 +61,14 @@ def simulation(iterations, length):
     print()
     print('    Parking Problem - Discrete Version: running {} simulations'.format(iterations))
     print()
-    print('                                     L: {:8d}'.format(length), end = '\r')
+    print('                                     L: {:8d}'.format(length))
     print()
 
     for i in range(iterations):
         results.append(parking_problem(length))
         print('                             iteration: {:8d}'.format(i + 1), end = '\r')
 
-    print('                            iterations: {:8d}'.format(iterations), end = '\r')
+    print('                            iterations: {:8d}'.format(iterations))
     print()
 
     return results
@@ -77,12 +77,11 @@ def simulation(iterations, length):
 
 def print_results(results):
     print()
-    print()
     print('    Parking Problem - Discrete Version: results')
     print()
     print('                          distribution:')
-    print('                                  mean: {:10.8f}'.format(np.mean(results)))
-    print('                    standard deviation: {:10.8f}'.format(np.std(results)))
+    print('                                  mean: {:0.6f}'.format(np.mean(results)))
+    print('                    standard deviation: {:0.6f}'.format(np.std(results)))
     print()
 
 
