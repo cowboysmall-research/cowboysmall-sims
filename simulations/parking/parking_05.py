@@ -7,26 +7,30 @@ import numpy as np
 
 
 def spots_available(spots, length, overlap):
-    if 0 <= spots[0] - (1.0 - (overlap / 2)):
+    exclusion = 1.0 - overlap
+
+    if 0 <= spots[0] - exclusion:
         return True
 
     for i in range(len(spots) - 1):
-        if spots[i] + (1.0 - (overlap / 2)) <= spots[i + 1] - (1.0 - (overlap / 2)):
+        if spots[i] + exclusion <= spots[i + 1] - exclusion:
             return True
 
-    return spots[-1] + (1.0 - (overlap / 2)) <= length - (1.0 - (overlap / 2))
+    return spots[-1] + exclusion <= length - exclusion
 
 
 
 def spot_found(spot, spots, length, overlap):
-    if 0 <= spot <= spots[0] - (1.0 - (overlap / 2)):
+    exclusion = 1.0 - overlap
+
+    if 0 <= spot <= spots[0] - exclusion:
         return True
 
     for i in range(len(spots) - 1):
-        if spots[i] + (1.0 - (overlap / 2)) <= spot <= spots[i + 1] - (1.0 - (overlap / 2)):
+        if spots[i] + exclusion <= spot <= spots[i + 1] - exclusion:
             return True
 
-    return spots[-1] + (1.0 - (overlap / 2)) <= spot <= length - (1.0 - (overlap / 2))
+    return spots[-1] + exclusion <= spot <= length - exclusion
 
 
 

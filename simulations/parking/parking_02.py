@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+
 def parking_problem(length):
     spots = []
 
@@ -29,16 +30,16 @@ def simulation(iterations, length):
     results = []
 
     print()
-    print('    Parking Problem: running {} simulations...'.format(iterations))
+    print('    Parking Problem: running {} simulations'.format(iterations))
+    print()
+    print('                  L: {:8d}'.format(length))
     print()
 
     for i in range(iterations):
         results.append(parking_problem(length))
-        print('                   : iteration {:5d}'.format(i + 1), end = '\r')
+        print('          iteration: {:8d}'.format(i + 1), end = '\r')
 
-    print()
-    print()
-    print('                   : simulations completed...')
+    print('         iterations: {:8d}'.format(iterations), end = '\r')
     print()
 
     return results
@@ -50,8 +51,7 @@ def print_results(results):
     print()
     print('    Parking Problem: results')
     print()
-    print('       Distribution:')
-    print()
+    print('       distribution:')
     print('               mean: {:10.8f}'.format(np.mean(results)))
     print(' standard deviation: {:10.8f}'.format(np.std(results)))
     print()
@@ -60,10 +60,11 @@ def print_results(results):
 
 def plot_results(results):
     plt.clf()
-    plt.hist(results)
+    plt.hist(results, bins = 25, density = True)
     plt.title('Parking Problem')
     plt.xlabel('Results')
     plt.savefig('./images/parking/parking_{}.png'.format(len(results)), format = 'png')
+    plt.savefig('./images/parking/parking_{}.eps'.format(len(results)), format = 'eps')
     plt.close()
 
 

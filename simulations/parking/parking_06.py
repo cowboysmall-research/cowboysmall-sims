@@ -6,18 +6,20 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+
 def parking_problem(length, overlap):
-    spots = []
+    exclusion = 1.0 - overlap
+    spots     = []
 
     def find_spots(start, end):
         spot = np.random.uniform(start, end)
         spots.append(spot)
 
-        if start <= spot - (1.0 - (overlap / 2)):
-            find_spots(start, spot - (1.0 - (overlap / 2)))
+        if start <= spot - exclusion:
+            find_spots(start, spot - exclusion)
 
-        if spot + (1.0 - (overlap / 2)) <= end:
-            find_spots(spot + (1.0 - (overlap / 2)), end)
+        if spot + exclusion <= end:
+            find_spots(spot + exclusion, end)
 
     find_spots(0, length)
 
@@ -45,16 +47,17 @@ def simulation(iterations, length, overlap):
     results = []
 
     print()
-    print('    Parking Problem: running {} simulations...'.format(iterations))
+    print('    Parking Problem - Overlap Version: running {} simulations'.format(iterations))
+    print()
+    print('                                    L: {:8d}'.format(length))
+    print('                              overlap: {:0.6f}'.format(overlap))
     print()
 
     for i in range(iterations):
         results.append(parking_problem(length, overlap))
-        print('                   : iteration {:5d}'.format(i + 1), end = '\r')
+        print('                            iteration: {:8d}'.format(i + 1), end = '\r')
 
-    print()
-    print()
-    print('                   : simulations completed...')
+    print('                           iterations: {:8d}'.format(iterations), end = '\r')
     print()
 
     return results
@@ -66,20 +69,20 @@ def print_results(results):
     print()
     print('    Parking Problem - Overlap Version: results')
     print()
-    print('                         Distribution:')
-    print()
+    print('                         distribution:')
     print('                                 mean: {:10.8f}'.format(np.mean(results)))
     print('                   standard deviation: {:10.8f}'.format(np.std(results)))
     print()
 
 
 
-def plot_results(results):
+def plot_results(results, overlap):
     plt.clf()
-    plt.hist(results)
-    plt.title('Parking Problem')
+    plt.hist(results, bins = 25, density = True)
+    plt.title('Parking Problem - Overlap Case')
     plt.xlabel('Results')
-    plt.savefig('./images/parking/parking_{}.png'.format(len(results)), format = 'png')
+    plt.savefig('./images/parking/parking_overlap_{}_{}.png'.format(overlap, len(results)), format = 'png')
+    plt.savefig('./images/parking/parking_overlap_{}_{}.eps'.format(overlap, len(results)), format = 'eps')
     plt.close()
 
 
@@ -92,7 +95,7 @@ def main(args):
     results    = simulation(iterations, length, overlap)
 
     print_results(results)
-    plot_results(results)
+    plot_results(results, overlap)
 
 
 

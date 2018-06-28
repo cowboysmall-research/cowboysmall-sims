@@ -3,53 +3,24 @@ import sys
 import argparse
 
 import numpy as np
-
-
-
-def spots_available(spots, length):
-    if 0 <= spots[0] - 2:
-        return True
-
-    for i in range(len(spots) - 1):
-        if spots[i] + 2 <= spots[i + 1] - 2:
-            return True
-
-    return spots[-1] + 2 <= length - 1
-
-
-
-def spot_found(spot, spots, length):
-    if 0 <= spot <= spots[0] - 2:
-        return True
-
-    for i in range(len(spots) - 1):
-        if spots[i] + 2 <= spot <= spots[i + 1] - 2:
-            return True
-
-    return spots[-1] + 2 <= spot <= length - 1
-
-
-
-def get_parking(length):
-    return np.random.randint(0, length)
+import matplotlib.pyplot as plt
 
 
 
 def parking_problem(length):
-    spots = [get_parking(length)]
-    count = 0
+    spots = []
 
-    while spots_available(spots, length):
-        spot = get_parking(length)
+    def find_spots(start, end):
+        spot = np.random.randint(start, end)
+        spots.append(spot)
 
-        if spot_found(spot, spots, length):
-            spots.append(spot)
-            spots.sort()
+        if start <= spot - 2:
+            find_spots(start, spot - 1)
 
-        count += 1
+        if spot + 3 <= end:
+            find_spots(spot + 2, end)
 
-        if count == 10000000:
-            break
+    find_spots(0, length)
 
     return (len(spots) * 2) / float(length)
 
@@ -61,7 +32,7 @@ def simulation(iterations, length):
     print()
     print('    Parking Problem - Discrete Version: running {} simulations'.format(iterations))
     print()
-    print('                                     L: {:8d}'.format(length), end = '\r')
+    print('                                     L: {:8d}'.format(length))
     print()
 
     for i in range(iterations):
@@ -87,11 +58,26 @@ def print_results(results):
 
 
 
+def plot_results(results):
+    plt.clf()
+    plt.hist(results, bins = 25, density = True)
+    plt.title('Parking Problem - Discrete Version')
+    plt.xlabel('Results')
+    plt.savefig('./images/parking/parking_discrete_{}.png'.format(len(results)), format = 'png')
+    plt.savefig('./images/parking/parking_discrete_{}.eps'.format(len(results)), format = 'eps')
+    plt.close()
+
+
+
 def main(args):
     iterations = int(args.iterations)
     length     = int(args.length)
 
-    print_results(simulation(iterations, length))
+    results    = simulation(iterations, length)
+
+    print_results(results)
+    plot_results(results)
+
 
 
 
