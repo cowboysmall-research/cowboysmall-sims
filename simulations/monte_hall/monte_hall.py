@@ -9,16 +9,14 @@ def simulation(choice, jump = False):
     doors[car]    += 1
     doors[choice] += 1
 
-    reveal = random.randint(0, 2)
-    while reveal == car or reveal == choice:
-        reveal = random.randint(0, 2)
+    reveal = random.choice(list(set(range(3)) - set([choice, car])))
     doors[reveal] = -1
 
     if jump:
-        for i in range(len(doors)):
+        for i in range(3):
             if i != choice and doors[i] != -1:
                 doors[choice] -= 1
-                doors[i]      += 1 
+                doors[i]      += 1
 
     return doors[car] == 2
 
