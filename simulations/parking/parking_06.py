@@ -1,8 +1,7 @@
 import sys
-
 import argparse
 
-import numpy as np
+import numpy             as np
 import matplotlib.pyplot as plt
 
 
@@ -32,11 +31,11 @@ def total_gaps(spots):
     for i in range(len(spots) - 1):
         value = spots[i + 1] - (spots[i] + 1)
         if value > 0:
-            total += value 
+            total += value
 
     value = spots[-1] - (spots[-2] + 1)
     if value > 0:
-        total += value 
+        total += value
 
     return total
 
