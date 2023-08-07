@@ -5,8 +5,12 @@ import random
 def simulation(iterations):
     total = 0
 
+    x, y = 0, 0
     for _ in range(iterations):
-        x, y = random.random(), random.random()
+        dx, dy = random.gauss(0, 0.25), random.gauss(0, 0.25)
+        if abs(x + dx) <= 1 and abs(y + dy) <= 1:
+            x += dx
+            y += dy
         if (x ** 2) + (y ** 2) <= 1:
             total += 1
 
