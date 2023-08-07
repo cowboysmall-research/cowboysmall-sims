@@ -31,7 +31,7 @@ def print_results(numbers, iterations):
     print()
     print('       Mean: %8.5f' % (np.mean(numbers)))
     print('        Std: %8.5f' % (np.std(numbers)))
-    print('       Mode: %8d'   % (st.mode(numbers)[0][0]))
+    print('       Mode: %8d'   % (st.mode(numbers, keepdims = True)[0][0]))
     print()
 
 
