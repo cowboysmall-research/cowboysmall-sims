@@ -2,8 +2,10 @@ import sys
 import random
 
 import numpy             as np
-import scipy.stats       as st
 import matplotlib.pyplot as plt
+import statistics        as st
+
+from matplotlib import style
 
 
 def simulation():
@@ -31,7 +33,7 @@ def print_results(numbers, iterations):
     print()
     print('       Mean: %8.5f' % (np.mean(numbers)))
     print('        Std: %8.5f' % (np.std(numbers)))
-    print('       Mode: %8d'   % (st.mode(numbers, keepdims = True)[0][0]))
+    print('       Mode: %8d'   % (st.mode(numbers)))
     print()
 
 
@@ -46,12 +48,17 @@ def print_prob(numbers, people):
 
 
 def plot_results(numbers):
+    style.use("ggplot")
+
     plt.clf()
-    plt.figure(1, facecolor = 'w')
-    plt.hist(numbers, bins = int((np.max(numbers) - np.min(numbers)) / 2), density = True)
     plt.title('Birthday Paradox - Histogram')
+
     plt.xlabel('Number')
     plt.ylabel('Proportion')
+
+    # plt.figure(1, facecolor = 'w')
+    plt.hist(numbers, bins = int((np.max(numbers) - np.min(numbers)) / 2), density = True)
+
     plt.savefig('./images/birthday_paradox/birthday_paradox_%s.png' % len(numbers), format = 'png')
     plt.close()
 
