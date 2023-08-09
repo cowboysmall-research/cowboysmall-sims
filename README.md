@@ -1,7 +1,9 @@
-# CowboySmall
+# CowboySmall Simulations
 
+<!-- 
 [![PyPI - Version](https://img.shields.io/pypi/v/cowboysmall.svg)](https://pypi.org/project/cowboysmall)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/cowboysmall.svg)](https://pypi.org/project/cowboysmall)
+ -->
 
 -----
 
@@ -13,9 +15,9 @@
 ## Installation
 
 ```console
-pip install cowboysmall
+pip install cowboysmall-sims
 ```
 
 ## License
 
-`cowboysmall` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
+`cowboysmall-sims` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
