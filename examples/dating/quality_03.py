@@ -6,18 +6,15 @@ import matplotlib.pyplot as plt
 
 
 def simulation(men, women, pool_size):
-    paired = 0
-
     while len(men) > 0 and max(men) > min(women):
         np.random.shuffle(men)
         np.random.shuffle(women)
         for man, woman in zip(men, women):
             if man > woman:
-                paired += 1
                 men.remove(man)
                 women.remove(woman)
 
-    return paired
+    return max(men)
 
 
 
@@ -40,12 +37,15 @@ def print_results(results):
 
 def plot_results(results, pool_size):
     plt.clf()
-    plt.figure(1, facecolor = 'w')
-    plt.hist(results, color = 'white', bins = (np.max(results) - np.min(results)) / 2, normed = True)
     plt.title('Dating Game (evenly distributed qualities)')
-    plt.xlabel('Dating')
+
+    plt.xlabel('Quality')
     plt.ylabel('Proportion')
-    plt.savefig('./images/dating/dating_even_%s_%s.png' % (pool_size, len(results)), format = 'png')
+
+    plt.figure(1, facecolor = 'w')
+    plt.hist(results, bins = int((np.max(results) - np.min(results)) / 2), density = True)
+
+    plt.savefig('./images/dating/quality_even_%s_%s.png' % (pool_size, len(results)), format = 'png')
     plt.close()
 
 

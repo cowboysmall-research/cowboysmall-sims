@@ -40,11 +40,14 @@ def print_results(results):
 
 def plot_results(results, pool_size):
     plt.clf()
-    plt.figure(1, facecolor = 'w')
-    plt.hist(results, color = 'white', bins = (np.max(results) - np.min(results)) / 2, normed = True)
     plt.title('Dating Game (uniformly distributed qualities)')
+
     plt.xlabel('Dating')
     plt.ylabel('Proportion')
+
+    plt.figure(1, facecolor = 'w')
+    plt.hist(results, bins = int((np.max(results) - np.min(results)) / 2), density = True)
+
     plt.savefig('./images/dating/dating_uniform_%s_%s.png' % (pool_size, len(results)), format = 'png')
     plt.close()
 

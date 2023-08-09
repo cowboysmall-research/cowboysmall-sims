@@ -33,6 +33,8 @@ def print_results(total, iterations):
 
 def plot_results(inside, outside, iterations):
     plt.clf()
+    plt.title('Pi: %s iterations' % iterations)
+
     plt.figure(1, facecolor = 'w')
 
     fig, ax = plt.subplots()
@@ -40,10 +42,9 @@ def plot_results(inside, outside, iterations):
     ax.scatter(inside[:, 0], inside[:, 1], c = 'blue', s = 1.0, label = 'inside')
     ax.scatter(outside[:, 0], outside[:, 1], c = 'red', s = 1.0, label = 'outside')
     ax.set_aspect('equal')
-    ax.legend(loc='upper right')
+    ax.legend(loc = 'upper right')
     ax.grid(True)
 
-    plt.title('Pi: %s iterations' % iterations)
     plt.savefig('./images/pi/pi_%s.png' % (iterations), format = 'png')
     plt.close()
 

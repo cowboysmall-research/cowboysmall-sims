@@ -2,8 +2,10 @@ import sys
 import random
 
 import numpy             as np
-import scipy.stats       as st
 import matplotlib.pyplot as plt
+import statistics        as st
+
+from matplotlib import style
 
 
 def simulation(iterations, heads, bias):
@@ -42,7 +44,7 @@ def print_results(results):
     print()
     print('        Mean: %8.5f' % (np.mean(results)))
     print('         Std: %8.5f' % (np.std(results)))
-    print('        Mode: %8d'   % (st.mode(results)[0][0]))
+    print('        Mode: %8d'   % (st.mode(numbers)))
     print()
 
 
@@ -59,12 +61,17 @@ def print_prob(results, tosses):
 
 
 def plot_results(results, heads, bias):
+    style.use("ggplot")
+
     plt.clf()
-    plt.figure(1, facecolor = 'w')
-    plt.hist(results, color = 'white', bins = (np.max(results) - np.min(results)) / 2, normed = True)
     plt.title('Coint Toss: %s heads in a row - Histogram' % heads)
+
     plt.xlabel('Tosses')
     plt.ylabel('Proportion')
+
+    plt.figure(1, facecolor = 'w')
+    plt.hist(results, bins = int((np.max(results) - np.min(results)) / 2), density = True)
+
     plt.savefig('./images/coin_toss/coin_toss_%s_%s_%s.png' % (heads, bias, len(results)), format = 'png')
     plt.close()
 

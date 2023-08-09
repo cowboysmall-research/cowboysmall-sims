@@ -23,11 +23,14 @@ def simulation(value, iterations):
 
 def plot_results(results, iterations):
     plt.clf()
-    plt.figure(1, facecolor = 'w')
-    plt.plot(range(iterations), results)
     plt.title('Random Walk: %s iterations' % iterations)
+
     plt.xlabel('Index')
     plt.ylabel('Value')
+
+    plt.figure(1, facecolor = 'w')
+    plt.plot(range(iterations), results)
+
     plt.savefig('./images/gamble/random_walk_%s.png' % (iterations), format = 'png')
     plt.close()
 

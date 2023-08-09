@@ -59,9 +59,12 @@ def print_results(results):
 
 def plot_results(results):
     plt.clf()
-    plt.hist(results, bins = 25, density = True)
     plt.title('Parking Problem - Discrete Version')
+
     plt.xlabel('Results')
+
+    plt.hist(results, bins = 25, density = True)
+
     plt.savefig('./images/parking/parking_discrete_{}.png'.format(len(results)), format = 'png')
     plt.savefig('./images/parking/parking_discrete_{}.eps'.format(len(results)), format = 'eps')
     plt.close()

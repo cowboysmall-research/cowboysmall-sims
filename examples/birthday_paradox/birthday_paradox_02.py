@@ -19,6 +19,7 @@ def simulation():
     return counter
 
 
+
 def print_results(numbers, iterations):
     print()
     print('Birthday Paradox')
@@ -37,6 +38,7 @@ def print_results(numbers, iterations):
     print()
 
 
+
 def print_prob(numbers, people):
     prob = np.sum(np.bincount(np.array(numbers))[0:people + 1]) / len(numbers)
     print()
@@ -45,6 +47,7 @@ def print_prob(numbers, people):
     else:
         print(' P(X <= %2d): %8.5f' % (people, prob))
     print()
+
 
 
 def plot_results(numbers):
@@ -56,11 +59,12 @@ def plot_results(numbers):
     plt.xlabel('Number')
     plt.ylabel('Proportion')
 
-    # plt.figure(1, facecolor = 'w')
+    plt.figure(1, facecolor = 'w')
     plt.hist(numbers, bins = int((np.max(numbers) - np.min(numbers)) / 2), density = True)
 
     plt.savefig('./images/birthday_paradox/birthday_paradox_%s.png' % len(numbers), format = 'png')
     plt.close()
+
 
 
 def main(argv):
@@ -77,6 +81,7 @@ def main(argv):
     print_prob(numbers, people)
 
     plot_results(numbers)
+
 
 
 if __name__ == "__main__":

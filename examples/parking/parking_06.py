@@ -75,9 +75,12 @@ def print_results(results):
 
 def plot_results(results, overlap):
     plt.clf()
-    plt.hist(results, bins = 25, density = True)
     plt.title('Parking Problem - Overlap Case')
+
     plt.xlabel('Results')
+
+    plt.hist(results, bins = 25, density = True)
+
     plt.savefig('./images/parking/parking_overlap_{}_{}.png'.format(overlap, len(results)), format = 'png')
     plt.savefig('./images/parking/parking_overlap_{}_{}.eps'.format(overlap, len(results)), format = 'eps')
     plt.close()

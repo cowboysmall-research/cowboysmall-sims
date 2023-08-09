@@ -1,4 +1,21 @@
-simulations
-===========
+# CowboySmall
 
-contains code to run and analyze simulations - used to solve problems
+[![PyPI - Version](https://img.shields.io/pypi/v/cowboysmall.svg)](https://pypi.org/project/cowboysmall)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/cowboysmall.svg)](https://pypi.org/project/cowboysmall)
+
+-----
+
+**Table of Contents**
+
+- [Installation](#installation)
+- [License](#license)
+
+## Installation
+
+```console
+pip install cowboysmall
+```
+
+## License
+
+`cowboysmall` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.

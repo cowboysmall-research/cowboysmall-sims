@@ -51,11 +51,14 @@ def print_results(results, data, k):
 
 def plot_results(results, size, k):
     plt.clf()
-    plt.figure(1, facecolor = 'w')
-    plt.hist(results[:, 0], color = 'white', bins = 25, normed = True)
     plt.title('Reservoir Samples (k = %s)' % (k))
+
     plt.xlabel('Sample Mean')
     plt.ylabel('Proportion')
+
+    plt.figure(1, facecolor = 'w')
+    plt.hist(results[:, 0], color = 'white', bins = 25, normed = True)
+
     plt.savefig('./images/reservoir_sampling/reservoir_sampling_%s_%s.png' % (size, k), format = 'png')
     plt.close()
 

@@ -6,21 +6,24 @@ import matplotlib.pyplot as plt
 
 
 def simulation(men, women, pool_size):
+    paired = 0
+
     while len(men) > 0 and max(men) > min(women):
         np.random.shuffle(men)
         np.random.shuffle(women)
         for man, woman in zip(men, women):
             if man > woman:
+                paired += 1
                 men.remove(man)
                 women.remove(woman)
 
-    return max(men)
+    return paired
 
 
 
 def print_results(results):
     print()
-    print('Dating Game (normaly distributed qualities)')
+    print('Dating Game (evenly distributed qualities)')
     print()
     print('           Minimum: %s' % (np.amin(results)))
     print('   25th Percentile: %s' % (np.percentile(results, 25)))
@@ -37,12 +40,15 @@ def print_results(results):
 
 def plot_results(results, pool_size):
     plt.clf()
-    plt.figure(1, facecolor = 'w')
-    plt.hist(results, color = 'white', bins = (np.max(results) - np.min(results)), normed = True)
-    plt.title('Dating Game (normaly distributed qualities)')
-    plt.xlabel('Quality')
+    plt.title('Dating Game (evenly distributed qualities)')
+
+    plt.xlabel('Dating')
     plt.ylabel('Proportion')
-    plt.savefig('./images/dating/quality_normal_%s_%s.png' % (pool_size, len(results)), format = 'png')
+
+    plt.figure(1, facecolor = 'w')
+    plt.hist(results, bins = int((np.max(results) - np.min(results)) / 2), density = True)
+
+    plt.savefig('./images/dating/dating_even_%s_%s.png' % (pool_size, len(results)), format = 'png')
     plt.close()
 
 
@@ -55,8 +61,8 @@ def main(argv):
 
     results = []
     for _ in range(iterations):
-        men     = np.random.normal(50, 17, pool_size).tolist()
-        women   = np.random.normal(50, 17, pool_size).tolist()
+        men     = [100 * (float(val) / pool_size) for val in range(pool_size)]
+        women   = [100 * (float(val) / pool_size) for val in range(pool_size)]
         results.append(simulation(men, women, pool_size))
 
     print_results(results)
