@@ -7,47 +7,20 @@ import statistics        as st
 
 from matplotlib import style
 
-
-def simulation():
-    birthdays = set()
-    counter   = 0
-
-    while len(birthdays) == counter:
-        birthdays.add(random.randint(0, 365))
-        counter += 1
-
-    return counter
+from cowboysmall.sims.simulation import Simulation
 
 
+class BirthdayParadox(Simulation):
 
-def print_results(numbers, iterations):
-    print()
-    print('Birthday Paradox')
-    print()
-    print(' iterations: %8d' % (iterations))
-    print()
-    print('        Min: %8d'   % (np.min(numbers)))
-    print('       25th: %8d'   % (np.percentile(numbers, 25)))
-    print('     Median: %8d'   % (np.median(numbers)))
-    print('       75th: %8d'   % (np.percentile(numbers, 75)))
-    print('        Max: %8d'   % (np.max(numbers)))
-    print()
-    print('       Mean: %8.5f' % (np.mean(numbers)))
-    print('        Std: %8.5f' % (np.std(numbers)))
-    print('       Mode: %8d'   % (st.mode(numbers)))
-    print()
+    def step(self, iteration: int, data: dict) -> None:
+        birthdays = set()
+        counter   = 0
 
+        while len(birthdays) == counter:
+            birthdays.add(random.randint(0, 365))
+            counter += 1
 
-
-def print_prob(numbers, people):
-    prob = np.sum(np.bincount(np.array(numbers))[0:people + 1]) / len(numbers)
-    print()
-    if people < 10:
-        print('  P(X <= %d): %8.5f' % (people, prob))
-    else:
-        print(' P(X <= %2d): %8.5f' % (people, prob))
-    print()
-
+        data['numbers'].append(counter)
 
 
 def plot_results(numbers):
@@ -66,21 +39,38 @@ def plot_results(numbers):
     plt.close()
 
 
-
 def main(argv):
     iterations = int(argv[0])
     people     = int(argv[1])
 
-    random.seed(1337)
+    sim  = BirthdayParadox({'numbers': []})
+    data = sim.run(iterations)
 
-    numbers = []
-    for _ in range(iterations):
-        numbers.append(simulation())
+    print()
+    print('Birthday Paradox')
+    print()
+    print(' iterations: %8d' % (iterations))
+    print()
+    print('        Min: %8d'   % (np.min(data['numbers'])))
+    print('       25th: %8d'   % (np.percentile(data['numbers'], 25)))
+    print('     Median: %8d'   % (np.median(data['numbers'])))
+    print('       75th: %8d'   % (np.percentile(data['numbers'], 75)))
+    print('        Max: %8d'   % (np.max(data['numbers'])))
+    print()
+    print('       Mean: %8.5f' % (np.mean(data['numbers'])))
+    print('        Std: %8.5f' % (np.std(data['numbers'])))
+    print('       Mode: %8d'   % (st.mode(data['numbers'])))
+    print()
 
-    print_results(numbers, iterations)
-    print_prob(numbers, people)
+    prob = np.sum(np.bincount(np.array(data['numbers']))[0:people + 1]) / len(data['numbers'])
+    print()
+    if people < 10:
+        print('  P(X <= %d): %8.5f' % (people, prob))
+    else:
+        print(' P(X <= %2d): %8.5f' % (people, prob))
+    print()
 
-    plot_results(numbers)
+    plot_results(data['numbers'])
 
 
 

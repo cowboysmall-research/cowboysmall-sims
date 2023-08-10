@@ -12,22 +12,7 @@ def markov(heads, tosses, bias):
         A[i, i - 1] = bias
     A[heads, heads] = 1.0
 
-    return 1 - np.linalg.matrix_power(A, tosses)[heads, 0]
-
-
-
-def print_results(heads, tosses, prob):
-    print()
-    print('Coin Toss')
-    print()
-    print('       heads: %8d' % (heads))
-    print()
-    if tosses < 10:
-        print('    P(X > %d): %8.5f' % (tosses, prob))
-    else:
-        print('   P(X > %2d): %8.5f' % (tosses, prob))
-    print()
-
+    return np.linalg.matrix_power(A, tosses)[heads, 0]
 
 
 def main(argv):
@@ -41,8 +26,16 @@ def main(argv):
 
     prob = markov(heads, tosses, bias)
 
-    print_results(heads, tosses, prob)
-
+    print()
+    print('Coin Toss')
+    print()
+    print('       heads: %8d' % (heads))
+    print()
+    if tosses < 10:
+        print('   P(X > %d): %8.5f' % (tosses, prob))
+    else:
+        print('  P(X > %2d): %8.5f' % (tosses, prob))
+    print()
 
 
 if __name__ == "__main__":

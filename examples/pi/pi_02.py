@@ -4,38 +4,22 @@ import random
 import numpy             as np
 import matplotlib.pyplot as plt
 
+from cowboysmall.sims.simulation import Simulation
 
 
-def simulation(iterations):
-    inside  = []
-    outside = []
+class Pi(Simulation):
 
-    for _ in range(iterations):
+    def step(self, iteration: int, data: dict) -> None:
         x, y = random.random(), random.random()
         if (x ** 2) + (y ** 2) <= 1:
-            inside.append((x, y))
+            data['inside'].append((x, y))
         else:
-            outside.append((x, y))
-
-    return np.array(inside), np.array(outside)
-
-
-
-def print_results(total, iterations):
-    print()
-    print('Pi - %s iterations' % (iterations))
-    print()
-    print(' Total: %8d' % (total))
-    print('    Pi: %8f' % (total * 4 / float(iterations)))
-    print()
-
+            data['outside'].append((x, y))
 
 
 def plot_results(inside, outside, iterations):
     plt.clf()
     plt.title('Pi: %s iterations' % iterations)
-
-    plt.figure(1, facecolor = 'w')
 
     fig, ax = plt.subplots()
 
@@ -49,17 +33,22 @@ def plot_results(inside, outside, iterations):
     plt.close()
 
 
-
 def main(argv):
-    iterations = int(argv[0])
-
     random.seed(1337)
 
-    inside, outside = simulation(iterations)
+    iterations = int(argv[0])
 
-    plot_results(inside, outside, iterations)
-    print_results(len(inside), iterations)
+    sim  = Pi({'inside': [], 'outside': []})
+    data = sim.run(iterations)
 
+    plot_results(np.array(data['inside']), np.array(data['outside']), iterations)
+
+    print()
+    print('Pi - %s iterations' % (iterations))
+    print()
+    print(' Total: %8d' % (len(data['inside'])))
+    print('    Pi: %8f' % (len(data['inside']) * 4 / float(iterations)))
+    print()
 
 
 if __name__ == "__main__":

@@ -1,39 +1,35 @@
 import sys
 import random
 
-
-def simulation(people):
-    birthdays = set()
-
-    for _ in range(people):
-        birthdays.add(random.randint(0, 365))
-
-    return len(birthdays) != people
+from cowboysmall.sims.simulation import Simulation
 
 
-def print_results(people, counter, iterations):
-    print()
-    print('Birthday Paradox')
-    print()
-    print(' iterations: %8d' % (iterations))
-    print()
-    print('     People: %8d'   % (people))
-    print(' Proportion: %8.5f' % (counter / float(iterations)))
-    print()
+class BirthdayParadox(Simulation):
+
+    def step(self, iteration: int, data: dict) -> None:
+        birthdays = set()
+
+        for _ in range(data['people']):
+            birthdays.add(random.randint(0, 365))
+
+        data['count'] += len(birthdays) != data['people']
 
 
 def main(argv):
     iterations = int(argv[0])
     people     = int(argv[1])
 
-    random.seed(1337)
+    sim  = BirthdayParadox({'people': people, 'count': 0})
+    data = sim.run(iterations)
 
-    counter = 0
-    for _ in range(iterations):
-        if simulation(people):
-            counter += 1
-
-    print_results(people, counter, iterations)
+    print()
+    print('Birthday Paradox')
+    print()
+    print(' iterations: %8d' % (iterations))
+    print()
+    print('     People: %8d'   % (people))
+    print(' Proportion: %8.5f' % (data['count'] / float(iterations)))
+    print()
 
 
 if __name__ == "__main__":
