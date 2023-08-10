@@ -1,36 +1,18 @@
 import sys
 import random
 
-import numpy             as np
-import matplotlib.pyplot as plt
-
 from cowboysmall.sims.simulation import Simulation
 
 
 class Pi(Simulation):
 
     def step(self, iteration: int, data: dict) -> None:
-        x, y = random.random(), random.random()
-        if (x ** 2) + (y ** 2) <= 1:
-            data['inside'].append((x, y))
-        else:
-            data['outside'].append((x, y))
-
-
-def plot_results(inside, outside, iterations):
-    plt.clf()
-    plt.title('Pi: %s iterations' % iterations)
-
-    fig, ax = plt.subplots()
-
-    ax.scatter(inside[:, 0], inside[:, 1], c = 'blue', s = 1.0, label = 'inside')
-    ax.scatter(outside[:, 0], outside[:, 1], c = 'red', s = 1.0, label = 'outside')
-    ax.set_aspect('equal')
-    ax.legend(loc = 'upper right')
-    ax.grid(True)
-
-    plt.savefig('./images/pi/pi_%s.png' % (iterations), format = 'png')
-    plt.close()
+        dx, dy = random.gauss(0, 0.25), random.gauss(0, 0.25)
+        if abs(data['x'] + dx) <= 1 and abs(data['y'] + dy) <= 1:
+            data['x'] += dx
+            data['y'] += dy
+        if (data['x'] ** 2) + (data['y'] ** 2) <= 1:
+            data['total'] += 1
 
 
 def main(argv):
@@ -38,16 +20,14 @@ def main(argv):
 
     iterations = int(argv[0])
 
-    sim  = Pi({'inside': [], 'outside': []})
+    sim  = Pi({'total': 0, 'x': 0, 'y': 0})
     data = sim.run(iterations)
-
-    plot_results(np.array(data['inside']), np.array(data['outside']), iterations)
 
     print()
     print('Pi - %s iterations' % (iterations))
     print()
-    print(' Total: %8d' % (len(data['inside'])))
-    print('    Pi: %8f' % (len(data['inside']) * 4 / float(iterations)))
+    print(' Total: %8d' % (data['total']))
+    print('    Pi: %8f' % (data['total'] * 4 / float(iterations)))
     print()
 
 

@@ -1,101 +1,34 @@
 import sys
 import random
 
-import numpy             as np
-import matplotlib.pyplot as plt
-import statistics        as st
-
-from matplotlib import style
+import numpy as np
 
 
-def simulation(iterations, heads, bias):
-    results = []
+def markov(heads, tosses, bias):
+    A = np.zeros((heads + 1, heads + 1))
 
-    for _ in range(iterations):
+    A[0, 0:heads] = 1 - bias
+    for i in range(1, heads + 1):
+        A[i, i - 1] = bias
+    A[heads, heads] = 1.0
 
-        total = 0
-        count = 0
-        while count < heads:
-            total += 1
-
-            if random.random() < bias:
-            # if random.uniform(0.0, 1.0) < bias:
-                count += 1
-            else:
-                count  = 0
-
-        results.append(total)
-
-    return results
-
-
-
-def print_results(results):
-    print()
-    print('Coin Toss')
-    print()
-    print('  iterations: %8d'   % (len(results)))
-    print()
-    print('         Min: %8d'   % (np.min(results)))
-    print('        25th: %8d'   % (np.percentile(results, 25)))
-    print('      Median: %8d'   % (np.median(results)))
-    print('        75th: %8d'   % (np.percentile(results, 75)))
-    print('         Max: %8d'   % (np.max(results)))
-    print()
-    print('        Mean: %8.5f' % (np.mean(results)))
-    print('         Std: %8.5f' % (np.std(results)))
-    print('        Mode: %8d'   % (st.mode(numbers)))
-    print()
-
-
-
-def print_prob(results, tosses):
-    prob = np.sum(np.bincount(np.array(results))[tosses + 1:]) / len(results)
-    print()
-    if tosses < 10:
-        print('    P(X > %d): %8.5f' % (tosses, prob))
-    else:
-        print('   P(X > %2d): %8.5f' % (tosses, prob))
-    print()
-
-
-
-def plot_results(results, heads, bias):
-    style.use("ggplot")
-
-    plt.clf()
-    plt.title('Coint Toss: %s heads in a row - Histogram' % heads)
-
-    plt.xlabel('Tosses')
-    plt.ylabel('Proportion')
-
-    plt.figure(1, facecolor = 'w')
-    plt.hist(results, bins = int((np.max(results) - np.min(results)) / 2), density = True)
-
-    plt.savefig('./images/coin_toss/coin_toss_%s_%s_%s.png' % (heads, bias, len(results)), format = 'png')
-    plt.close()
-
+    return np.linalg.matrix_power(A, tosses)[heads, 0]
 
 
 def main(argv):
-    iterations = int(argv[0])
-    heads      = int(argv[1])
-    tosses     = int(argv[2])
+    heads  = int(argv[0])
+    tosses = int(argv[1])
+    bias   = float(argv[2]) if len(argv) == 3 else 0.5
 
-    if len(argv) == 4:
-        bias = float(argv[3])
-    else:
-        bias = 0.5
+    prob = markov(heads, tosses, bias)
 
-    random.seed(1337)
-
-    results = simulation(iterations, heads, bias)
-
-    print_results(results)
-    print_prob(results, tosses)
-
-    plot_results(results, heads, bias)
-
+    print()
+    print('Coin Toss')
+    print()
+    print('         heads: %8d' % (heads))
+    print()
+    print('  P(X <= %4d): %8.5f' % (tosses, prob))
+    print()
 
 
 if __name__ == "__main__":

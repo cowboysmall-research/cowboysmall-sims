@@ -4,21 +4,18 @@ import random
 import numpy             as np
 import matplotlib.pyplot as plt
 
+from cowboysmall.sims.simulation import Simulation
 
 
-def simulation(value, iterations):
-    results = []
+class RandomWalk(Simulation):
 
-    for _ in range(iterations):
+    def step(self, i: int, data: dict) -> None:
         if random.random() < 0.5:
-            value += 1
+            data['value'] += 1
         else:
-            value -= 1
+            data['value'] -= 1
 
-        results.append(value)
-
-    return results
-
+        data['results'].append(data['value'])
 
 
 def plot_results(results, iterations):
@@ -35,17 +32,16 @@ def plot_results(results, iterations):
     plt.close()
 
 
-
 def main(argv):
     iterations = int(argv[0])
     initial    = int(argv[1])
 
     random.seed(1337)
 
-    results    = simulation(initial, iterations)
+    sim  = RandomWalk({'value': initial, 'results': []})
+    data = sim.run(iterations)
 
-    plot_results(results, iterations)
-
+    plot_results(data['results'], iterations)
 
 
 if __name__ == "__main__":

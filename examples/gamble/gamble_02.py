@@ -4,33 +4,46 @@ import random
 import numpy             as np
 import matplotlib.pyplot as plt
 
+from cowboysmall.sims.simulation import Simulation
 
 
-def simulation(amount, margin):
-    target = amount + margin
-    stake  = 1
+class Gamble(Simulation):
 
-    while 0 < amount < target:
-        if random.random() < 0.5:
-            amount += stake
-        else:
-            amount -= stake
-            stake  *= 2
+    def step(self, i: int, data: dict) -> None:
+        amount = data['amount']
+        margin = data['margin']
+        target = amount + margin
+        stake  = 1
 
-    return amount > 0
+        while 0 < amount < target:
+            if random.random() < 0.5:
+                amount += stake
+            else:
+                amount -= stake
+                stake  *= 2
+
+        data['count'] += amount > 0
 
 
+def main(argv):
+    iterations = int(argv[0])
+    amount     = int(argv[1])
+    margin     = int(argv[2])
 
-def print_results(iterations, count, margin, amount):
-    winnings   = count * margin
-    losses     = (iterations - count) * amount
-    proportion = count / float(iterations)
+    random.seed(1337)
+
+    sim  = Gamble({'amount': amount, 'margin': margin, 'count': 0})
+    data = sim.run(iterations)
+
+    proportion = data['count'] / float(iterations)
+    winnings   = data['count'] * margin
+    losses     = (iterations - data['count']) * amount
 
     print()
     print('Gambling Simulation - %s iterations' % (iterations))
     print()
     print(' Probability')
-    print('       Successes: %15s'   % (count))
+    print('       Successes: %15s'   % (data['count']))
     print('      Proportion: %15.3f' % (proportion))
     print(' Expected Profit: %15.3f' % ((proportion * margin) - ((1 - proportion) * amount)))
     print()
@@ -40,25 +53,6 @@ def print_results(iterations, count, margin, amount):
     print('   Actual Profit: %15.3f' % (winnings - losses))
     print()
     print()
-
-
-
-def main(argv):
-    iterations = int(argv[0])
-    amount     = int(argv[1])
-    margin     = int(argv[2])
-
-    count      = 0
-
-    random.seed(1337)
-
-    for _ in range(iterations):
-        if simulation(amount, margin):
-            count += 1
-
-
-    print_results(iterations, count, margin, amount)
-
 
 
 if __name__ == "__main__":

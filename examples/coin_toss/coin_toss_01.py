@@ -6,20 +6,17 @@ from cowboysmall.sims.simulation import Simulation
 
 class CoinToss(Simulation):
 
-    def step(self, iterations: int, data: dict) -> None:
+    def step(self, iteration: int, data: dict) -> None:
         index = 0
         count = 0
 
-        while index < data['tosses']:
+        while count < data['heads'] and index < data['tosses']:
+            index += 1
+
             if random.uniform(0.0, 1.0) < data['bias']:
                 count += 1
             else:
                 count  = 0
-
-            if count == data['heads']:
-                break
-
-            index += 1
 
         data['count'] += count == data['heads']
 
@@ -36,15 +33,10 @@ def main(argv):
     print()
     print('Coin Toss')
     print()
-    print('  iterations: %8d' % (iterations))
-    print('       heads: %8d' % (heads))
+    print('      iterations: %8d' % (iterations))
+    print('           heads: %8d' % (heads))
     print()
-
-    print()
-    if tosses < 10:
-        print('    P(X <= %d): %8.5f' % (tosses, data['count'] / float(iterations)))
-    else:
-        print('   P(X <= %2d): %8.5f' % (tosses, data['count'] / float(iterations)))
+    print('    P(X <= %4d): %8.5f' % (tosses, data['count'] / float(iterations)))
     print()
 
 

@@ -9,7 +9,14 @@ class Simulation:
         pass
 
     def run(self, iterations: int):
-        for iteration in range(iterations):
-            self.step(iteration, self.data)
+        try:
+            for iteration in range(iterations):
+                self.step(iteration, self.data)
+        except SimulationException:
+            pass
 
         return self.data
+
+
+class SimulationException(Exception):
+    pass

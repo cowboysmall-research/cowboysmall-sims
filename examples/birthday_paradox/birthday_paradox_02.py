@@ -64,14 +64,10 @@ def main(argv):
 
     prob = np.sum(np.bincount(np.array(data['numbers']))[0:people + 1]) / len(data['numbers'])
     print()
-    if people < 10:
-        print('  P(X <= %d): %8.5f' % (people, prob))
-    else:
-        print(' P(X <= %2d): %8.5f' % (people, prob))
+    print(' P(X <= %4d): %8.5f' % (people, prob))
     print()
 
     plot_results(data['numbers'])
-
 
 
 if __name__ == "__main__":

@@ -1,40 +1,41 @@
 import sys
 import random
 
-import numpy as np
+from cowboysmall.sims.simulation import Simulation
 
 
-def markov(heads, tosses, bias):
-    A = np.zeros((heads + 1, heads + 1))
+class CoinToss(Simulation):
 
-    A[0, 0:heads] = 1 - bias
-    for i in range(1, heads + 1):
-        A[i, i - 1] = bias
-    A[heads, heads] = 1.0
+    def step(self, iteration: int, data: dict) -> None:
+        total = 0
+        count = 0
 
-    return np.linalg.matrix_power(A, tosses)[heads, 0]
+        while count < data['heads']:
+            total += 1
+
+            if random.uniform(0.0, 1.0) < data['bias']:
+                count += 1
+            else:
+                count  = 0
+
+        data['count'] += total
 
 
 def main(argv):
-    heads  = int(argv[0])
-    tosses = int(argv[1])
+    iterations = int(argv[0])
+    heads      = int(argv[1])
+    bias       = float(argv[2]) if len(argv) == 3 else 0.5
 
-    if len(argv) == 3:
-        bias = float(argv[2])
-    else:
-        bias = 0.5
-
-    prob = markov(heads, tosses, bias)
+    sim  = CoinToss({'heads': heads, 'bias': bias, 'count': 0})
+    data = sim.run(iterations)
 
     print()
     print('Coin Toss')
     print()
-    print('       heads: %8d' % (heads))
+    print('      iterations: %8d' % (iterations))
+    print('           heads: %8d' % (heads))
     print()
-    if tosses < 10:
-        print('   P(X > %d): %8.5f' % (tosses, prob))
-    else:
-        print('  P(X > %2d): %8.5f' % (tosses, prob))
+    print('Expected number of tosses to get %d heads in a row: %8.5f' % (heads, data['count'] / float(iterations)))
     print()
 
 
