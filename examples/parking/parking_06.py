@@ -1,9 +1,7 @@
-import sys
 import argparse
 
-import numpy             as np
+import numpy as np
 import matplotlib.pyplot as plt
-
 
 
 def parking_problem(length, exclusion):
@@ -24,7 +22,6 @@ def parking_problem(length, exclusion):
     return (length - total_gaps(sorted(spots))) / float(length)
 
 
-
 def total_gaps(spots):
     total = 0
 
@@ -38,7 +35,6 @@ def total_gaps(spots):
         total += value
 
     return total
-
 
 
 def simulation(iterations, length, overlap):
@@ -61,7 +57,6 @@ def simulation(iterations, length, overlap):
     return results
 
 
-
 def print_results(results):
     print()
     print('    Parking Problem - Overlap Version: results')
@@ -70,7 +65,6 @@ def print_results(results):
     print('                                 mean: {:0.6f}'.format(np.mean(results)))
     print('                   standard deviation: {:0.6f}'.format(np.std(results)))
     print()
-
 
 
 def plot_results(results, overlap):
@@ -86,7 +80,6 @@ def plot_results(results, overlap):
     plt.close()
 
 
-
 def main(args):
     iterations = int(args.iterations)
     length     = int(args.length)
@@ -96,8 +89,6 @@ def main(args):
 
     print_results(results)
     plot_results(results, overlap)
-
-
 
 
 if __name__ == "__main__":

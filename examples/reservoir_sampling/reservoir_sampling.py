@@ -1,5 +1,4 @@
 import sys
-import random
 import math
 
 import numpy as np
@@ -51,14 +50,14 @@ def main(argv):
     print()
     print('         Observed Distribution:')
     print()
-    print('                          mean: %10.5g' % np.mean(samples[:, 0]))
-    print('                          bias: %10.5g' % (np.mean(samples[:, 0]) - np.mean(population)))
+    print('                          mean: %10.5g' % np.mean(data['samples'][:, 0]))
+    print('                          bias: %10.5g' % (np.mean(data['samples'][:, 0]) - np.mean(population)))
     print()
-    print('            standard deviation: %10.5g' % np.std(samples[:, 0]))
-    print('                          bias: %10.5g' % (np.mean(samples[:, 1]) - np.std(population)))
+    print('            standard deviation: %10.5g' % np.std(data['samples'][:, 0]))
+    print('                          bias: %10.5g' % (np.mean(data['samples'][:, 1]) - np.std(population)))
     print()
 
-    plot_results(samples, size, k)
+    plot_results(data['samples'], size, k)
 
 
 if __name__ == "__main__":

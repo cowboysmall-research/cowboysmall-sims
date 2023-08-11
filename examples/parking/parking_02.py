@@ -1,10 +1,7 @@
-import sys
-
 import argparse
 
 import numpy as np
 import matplotlib.pyplot as plt
-
 
 
 def parking_problem(length):
@@ -23,7 +20,6 @@ def parking_problem(length):
     find_spots(0, length)
 
     return len(spots) / float(length)
-
 
 
 def simulation(iterations, length):
@@ -45,7 +41,6 @@ def simulation(iterations, length):
     return results
 
 
-
 def print_results(results):
     print()
     print('    Parking Problem: results')
@@ -54,7 +49,6 @@ def print_results(results):
     print('               mean: {:0.6f}'.format(np.mean(results)))
     print(' standard deviation: {:0.6f}'.format(np.std(results)))
     print()
-
 
 
 def plot_results(results):
@@ -70,7 +64,6 @@ def plot_results(results):
     plt.close()
 
 
-
 def main(args):
     iterations = int(args.iterations)
     length     = int(args.length)
@@ -79,8 +72,6 @@ def main(args):
 
     print_results(results)
     plot_results(results)
-
-
 
 
 if __name__ == "__main__":

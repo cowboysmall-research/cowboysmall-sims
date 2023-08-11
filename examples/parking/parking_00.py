@@ -1,9 +1,6 @@
-import sys
-
 import argparse
 
 import numpy as np
-
 
 
 def spots_available(spots, length):
@@ -17,7 +14,6 @@ def spots_available(spots, length):
     return spots[-1, 1] <= length - 1.0
 
 
-
 def spot_found(spot, spots, length):
     if 0 <= spot[0, 0] and spot[0, 1] <= spots[0, 0]:
         return True
@@ -29,11 +25,9 @@ def spot_found(spot, spots, length):
     return spots[-1, 1] <= spot[0, 0] and spot[0, 1] <= length
 
 
-
 def get_parking(length):
     spot = np.random.uniform(0, length)
     return np.array([[spot, spot + 1.0]])
-
 
 
 def parking_problem(length):
@@ -55,7 +49,6 @@ def parking_problem(length):
     return spots.shape[0] / float(length)
 
 
-
 def simulation(iterations, length):
     results = []
 
@@ -75,7 +68,6 @@ def simulation(iterations, length):
     return results
 
 
-
 def print_results(results):
     print()
     print()
@@ -88,13 +80,11 @@ def print_results(results):
     print()
 
 
-
 def main(args):
     iterations = int(args.iterations)
     length     = int(args.length)
 
     print_results(simulation(iterations, length))
-
 
 
 if __name__ == "__main__":

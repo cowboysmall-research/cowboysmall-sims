@@ -1,9 +1,6 @@
-import sys
-
 import argparse
 
 import numpy as np
-
 
 
 def spots_available(spots, length, exclusion):
@@ -17,7 +14,6 @@ def spots_available(spots, length, exclusion):
     return spots[-1] + exclusion <= length - exclusion
 
 
-
 def spot_found(spot, spots, length, exclusion):
     if 0 <= spot <= spots[0] - exclusion:
         return True
@@ -29,10 +25,8 @@ def spot_found(spot, spots, length, exclusion):
     return spots[-1] + exclusion <= spot <= length - exclusion
 
 
-
 def get_parking(length):
     return np.random.uniform(0, length)
-
 
 
 def total_gaps(spots):
@@ -48,8 +42,6 @@ def total_gaps(spots):
         total += value 
 
     return total
-
-
 
 
 def parking_problem(length, overlap):
@@ -69,8 +61,6 @@ def parking_problem(length, overlap):
             break
 
     return (length - total_gaps(sorted(spots))) / float(length)
-
-
 
 
 def simulation(iterations, length, overlap):
@@ -94,7 +84,6 @@ def simulation(iterations, length, overlap):
     return results
 
 
-
 def print_results(results):
     print()
     print('    Parking Problem - Overlap Version: results')
@@ -105,14 +94,12 @@ def print_results(results):
     print()
 
 
-
 def main(args):
     iterations = int(args.iterations)
     length     = int(args.length)
     overlap    = float(args.overlap)
 
     print_results(simulation(iterations, length, overlap))
-
 
 
 if __name__ == "__main__":
