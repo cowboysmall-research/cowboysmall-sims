@@ -4,49 +4,18 @@ import random
 import numpy             as np
 import matplotlib.pyplot as plt
 
+from cowboysmall.sims.simulation import Simulation
 
 
-def bootstrap(population, size, iterations):
-    samples    = np.empty((iterations, 4))
+class Bootstrap(Simulation):
 
-    for i in range(iterations):
-        sample        = np.random.choice(population, size)
-        samples[i, 0] = np.mean(sample)
-        samples[i, 1] = np.median(sample)
-        samples[i, 2] = np.std(sample)
-        samples[i, 3] = np.var(sample)
+    def step(self, i: int, data: dict) -> None:
+        sample = np.random.choice(data['population'], data['size'])
 
-    return samples
-
-
-
-def print_results(data, results):
-    print()
-    print('               Mean:')
-    print('              Value: %0.5f' % (np.mean(data)))
-    print('               S.E.: \u00B1 %0.5f' % (np.std(results[:, 0])))
-    print('               Bias: %0.5f' % (np.mean(results[:, 0]) - np.mean(data)))
-    print('               C.I.: (%0.5f, %0.5f)' % (np.percentile(results[:, 0], 2.5), np.percentile(results[:, 0], 97.5)))
-    print()
-    print('             Median:')
-    print('              Value: %0.5f' % (np.median(data)))
-    print('               S.E.: \u00B1 %0.5f' % (np.std(results[:, 1])))
-    print('               Bias: %0.5f' % (np.mean(results[:, 1]) - np.median(data)))
-    print('               C.I.: (%0.5f, %0.5f)' % (np.percentile(results[:, 1], 2.5), np.percentile(results[:, 1], 97.5)))
-    print()
-    print(' Standard Deviation:')
-    print('              Value: %0.5f' % (np.std(data)))
-    print('               S.E.: \u00B1 %0.5f' % (np.std(results[:, 2])))
-    print('               Bias: %0.5f' % (np.mean(results[:, 2]) - np.std(data)))
-    print('               C.I.: (%0.5f, %0.5f)' % (np.percentile(results[:, 2], 2.5), np.percentile(results[:, 2], 97.5)))
-    print()
-    print('           Variance:')
-    print('              Value: %0.5f' % (np.var(data)))
-    print('               S.E.: \u00B1 %0.5f' % (np.std(results[:, 3])))
-    print('               Bias: %0.5f' % (np.mean(results[:, 3]) - np.var(data)))
-    print('               C.I.: (%0.5f, %0.5f)' % (np.percentile(results[:, 3], 2.5), np.percentile(results[:, 3], 97.5)))
-    print()
-
+        data['samples'][i, 0] = np.mean(sample)
+        data['samples'][i, 1] = np.median(sample)
+        data['samples'][i, 2] = np.std(sample)
+        data['samples'][i, 3] = np.var(sample)
 
 
 def plot_results(samples, size, iterations, statistic):
@@ -63,7 +32,6 @@ def plot_results(samples, size, iterations, statistic):
     plt.close()
 
 
-
 def main(argv):
     mean       = int(argv[0])
     std        = int(argv[1])
@@ -72,15 +40,42 @@ def main(argv):
 
     np.random.seed(1337)
 
-    data    = np.random.normal(mean, std, size)
-    samples = bootstrap(data, size, iterations)
+    population = np.random.normal(mean, std, size)
+    samples    = np.empty((iterations, 4))
 
-    print_results(data, samples)
-    plot_results(samples[:, 0], size, iterations, 'mean')
-    plot_results(samples[:, 1], size, iterations, 'median')
-    plot_results(samples[:, 2], size, iterations, 'standard deviation')
-    plot_results(samples[:, 3], size, iterations, 'variance')
+    sim  = Bootstrap({'population': population, 'samples': samples, 'size': size})
+    data = sim.run(iterations)
 
+    print()
+    print('               Mean:')
+    print('              Value: %0.5f' % (np.mean(population)))
+    print('               S.E.: \u00B1 %0.5f' % (np.std(data['samples'][:, 0])))
+    print('               Bias: %0.5f' % (np.mean(data['samples'][:, 0]) - np.mean(population)))
+    print('               C.I.: (%0.5f, %0.5f)' % (np.percentile(data['samples'][:, 0], 2.5), np.percentile(data['samples'][:, 0], 97.5)))
+    print()
+    print('             Median:')
+    print('              Value: %0.5f' % (np.median(population)))
+    print('               S.E.: \u00B1 %0.5f' % (np.std(data['samples'][:, 1])))
+    print('               Bias: %0.5f' % (np.mean(data['samples'][:, 1]) - np.median(population)))
+    print('               C.I.: (%0.5f, %0.5f)' % (np.percentile(data['samples'][:, 1], 2.5), np.percentile(data['samples'][:, 1], 97.5)))
+    print()
+    print(' Standard Deviation:')
+    print('              Value: %0.5f' % (np.std(population)))
+    print('               S.E.: \u00B1 %0.5f' % (np.std(data['samples'][:, 2])))
+    print('               Bias: %0.5f' % (np.mean(data['samples'][:, 2]) - np.std(population)))
+    print('               C.I.: (%0.5f, %0.5f)' % (np.percentile(data['samples'][:, 2], 2.5), np.percentile(data['samples'][:, 2], 97.5)))
+    print()
+    print('           Variance:')
+    print('              Value: %0.5f' % (np.var(population)))
+    print('               S.E.: \u00B1 %0.5f' % (np.std(data['samples'][:, 3])))
+    print('               Bias: %0.5f' % (np.mean(data['samples'][:, 3]) - np.var(population)))
+    print('               C.I.: (%0.5f, %0.5f)' % (np.percentile(data['samples'][:, 3], 2.5), np.percentile(data['samples'][:, 3], 97.5)))
+    print()
+
+    plot_results(data['samples'][:, 0], size, iterations, 'mean')
+    plot_results(data['samples'][:, 1], size, iterations, 'median')
+    plot_results(data['samples'][:, 2], size, iterations, 'standard deviation')
+    plot_results(data['samples'][:, 3], size, iterations, 'variance')
 
 
 if __name__ == "__main__":

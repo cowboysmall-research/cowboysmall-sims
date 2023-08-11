@@ -4,28 +4,14 @@ import random
 import numpy             as np
 import matplotlib.pyplot as plt
 
+from cowboysmall.sims.simulation import Simulation
 
 
-def bootstrap(population, size, iterations):
-    samples    = np.empty((iterations, 1))
+class Bootstrap(Simulation):
 
-    for i in range(iterations):
-        sample        = np.random.choice(population, size)
-        samples[i, 0] = np.median(sample)
-
-    return samples
-
-
-
-def print_results(data, results):
-    print()
-    print(' Median:')
-    print('  Value: %0.5f' % (np.median(data)))
-    print('   S.E.: \u00B1 %0.5f' % (np.std(results[:, 0])))
-    print('   Bias: %0.5f' % (np.mean(results[:, 0]) - np.median(data)))
-    print('   C.I.: (%0.5f, %0.5f)' % (np.percentile(results[:, 0], 2.5), np.percentile(results[:, 0], 97.5)))
-    print()
-
+    def step(self, i: int, data: dict) -> None:
+        sample = np.random.choice(data['population'], data['size'])
+        data['samples'][i, 0] = np.median(sample)
 
 
 def main(argv):
@@ -36,11 +22,19 @@ def main(argv):
 
     np.random.seed(1337)
 
-    data    = np.random.normal(mean, std, size)
-    samples = bootstrap(data, size, iterations)
+    population = np.random.normal(mean, std, size)
+    samples    = np.empty((iterations, 1))
 
-    print_results(data, samples)
+    sim  = Bootstrap({'population': population, 'samples': samples, 'size': size})
+    data = sim.run(iterations)
 
+    print()
+    print(' Median:')
+    print('  Value: %0.5f' % (np.median(population)))
+    print('   S.E.: \u00B1 %0.5f' % (np.std(data['samples'][:, 0])))
+    print('   Bias: %0.5f' % (np.mean(data['samples'][:, 0]) - np.median(population)))
+    print('   C.I.: (%0.5f, %0.5f)' % (np.percentile(data['samples'][:, 0], 2.5), np.percentile(data['samples'][:, 0], 97.5)))
+    print()
 
 
 if __name__ == "__main__":
