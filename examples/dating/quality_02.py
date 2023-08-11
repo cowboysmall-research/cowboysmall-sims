@@ -1,71 +1,53 @@
 import sys
 import random
 
-import numpy             as np
-import matplotlib.pyplot as plt
+import numpy as np
+
+from cowboysmall.sims.simulation import Simulation
+from examples.dating import plot_results
 
 
-def simulation(men, women, pool_size):
-    while len(men) > 0 and max(men) > min(women):
-        np.random.shuffle(men)
-        np.random.shuffle(women)
-        for man, woman in zip(men, women):
-            if man > woman:
-                men.remove(man)
-                women.remove(woman)
+class Quality(Simulation):
 
-    return max(men)
+    def step(self, i: int, data: dict) -> None:
+        men   = np.random.normal(50, 17, data['pool_size']).tolist()
+        women = np.random.normal(50, 17, data['pool_size']).tolist()
 
+        while len(men) > 0 and max(men) > min(women):
+            np.random.shuffle(men)
+            np.random.shuffle(women)
+            for man, woman in zip(men, women):
+                if man > woman:
+                    men.remove(man)
+                    women.remove(woman)
 
-
-def print_results(results):
-    print()
-    print('Dating Game (normaly distributed qualities)')
-    print()
-    print('           Minimum: %s' % (np.amin(results)))
-    print('   25th Percentile: %s' % (np.percentile(results, 25)))
-    print('            Median: %s' % (np.median(results)))
-    print('   75th Percentile: %s' % (np.percentile(results, 75)))
-    print('           Maximum: %s' % (np.amax(results)))
-    print()
-    print('              Mean: %s' % (np.mean(results)))
-    print('Standard Deviation: %s' % (np.std(results)))
-    print('          Variance: %s' % (np.var(results)))
-    print()
-
-
-
-def plot_results(results, pool_size):
-    plt.clf()
-    plt.title('Dating Game (normaly distributed qualities)')
-
-    plt.xlabel('Quality')
-    plt.ylabel('Proportion')
-
-    plt.figure(1, facecolor = 'w')
-    plt.hist(results, bins = int((np.max(results) - np.min(results)) / 2), density = True)
-
-    plt.savefig('./images/dating/quality_normal_%s_%s.png' % (pool_size, len(results)), format = 'png')
-    plt.close()
-
+        data['results'].append(max(men))
 
 
 def main(argv):
+    np.random.seed(1337)
+
     pool_size  = int(argv[0])
     iterations = int(argv[1])
 
-    np.random.seed(1337)
+    sim  = Quality({'pool_size': pool_size, 'results': []})
+    data = sim.run(iterations)
 
-    results = []
-    for _ in range(iterations):
-        men     = np.random.normal(50, 17, pool_size).tolist()
-        women   = np.random.normal(50, 17, pool_size).tolist()
-        results.append(simulation(men, women, pool_size))
+    print()
+    print('Dating Game (normaly distributed qualities)')
+    print()
+    print('           Minimum: %s' % (np.amin(data['results'])))
+    print('   25th Percentile: %s' % (np.percentile(data['results'], 25)))
+    print('            Median: %s' % (np.median(data['results'])))
+    print('   75th Percentile: %s' % (np.percentile(data['results'], 75)))
+    print('           Maximum: %s' % (np.amax(data['results'])))
+    print()
+    print('              Mean: %s' % (np.mean(data['results'])))
+    print('Standard Deviation: %s' % (np.std(data['results'])))
+    print('          Variance: %s' % (np.var(data['results'])))
+    print()
 
-    print_results(results)
-
-    plot_results(results, pool_size)
-
+    plot_results(data['results'], pool_size, 'normal', type = 'quality', xlabel = 'Quality')
 
 
 if __name__ == "__main__":
