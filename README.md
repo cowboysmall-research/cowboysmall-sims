@@ -9,14 +9,24 @@
 
 **Table of Contents**
 
-- [Installation](#installation)
+- [Development](#Development)
 - [License](#license)
 
-## Installation
+
+## Development
+
+The best way to play with these simulations is to launch a hatch shell:
 
 ```console
-pip install cowboysmall-sims
+> hatch shell
 ```
+
+once the shell is up and running you can run the examples:
+
+```console
+> python -m examples.pi.pi_01 1000
+```
+
 
 ## License
 
