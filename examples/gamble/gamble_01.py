@@ -35,11 +35,11 @@ def plot_results(results, iterations, initial, margin):
 
 
 def main(argv):
+    np.random.seed(1337)
+
     iterations = int(argv[0])
     initial    = int(argv[1])
     margin     = int(argv[2])
-
-    np.random.seed(1337)
 
     results       = np.zeros((iterations + 1, 3))
     results[:, 0] = np.random.sample(iterations + 1)

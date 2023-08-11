@@ -26,11 +26,11 @@ class Gamble(Simulation):
 
 
 def main(argv):
+    random.seed(1337)
+
     iterations = int(argv[0])
     amount     = int(argv[1])
     margin     = int(argv[2])
-
-    random.seed(1337)
 
     sim  = Gamble({'amount': amount, 'margin': margin, 'count': 0})
     data = sim.run(iterations)

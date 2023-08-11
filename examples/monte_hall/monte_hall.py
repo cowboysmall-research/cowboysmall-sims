@@ -33,9 +33,9 @@ def main(argv):
     iterations = int(argv[0])
 
     sim1  = MonteHall({'count': 0})
-    data1 = sim1.run(iterations)
-
     sim2  = MonteHall({'count': 0, 'jump': True})
+
+    data1 = sim1.run(iterations)
     data2 = sim2.run(iterations)
 
     print()

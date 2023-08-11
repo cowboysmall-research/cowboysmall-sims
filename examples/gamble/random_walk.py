@@ -33,10 +33,10 @@ def plot_results(results, iterations):
 
 
 def main(argv):
+    random.seed(1337)
+
     iterations = int(argv[0])
     initial    = int(argv[1])
-
-    random.seed(1337)
 
     sim  = RandomWalk({'value': initial, 'results': []})
     data = sim.run(iterations)

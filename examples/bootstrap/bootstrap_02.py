@@ -15,12 +15,12 @@ class Bootstrap(Simulation):
 
 
 def main(argv):
+    np.random.seed(1337)
+
     mean       = int(argv[0])
     std        = int(argv[1])
     size       = int(argv[2])
     iterations = int(argv[3])
-
-    np.random.seed(1337)
 
     population = np.random.normal(mean, std, size)
     samples    = np.empty((iterations, 1))
