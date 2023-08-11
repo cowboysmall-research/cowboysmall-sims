@@ -1,10 +1,8 @@
 import sys
 import random
 
-import numpy             as np
-import matplotlib.pyplot as plt
-
 from cowboysmall.sims.simulation import Simulation
+from examples.random_walk import plot_results
 
 
 class RandomWalk(Simulation):
@@ -16,20 +14,6 @@ class RandomWalk(Simulation):
             data['value'] -= 1
 
         data['results'].append(data['value'])
-
-
-def plot_results(results, iterations):
-    plt.clf()
-    plt.title('Random Walk: %s iterations' % iterations)
-
-    plt.xlabel('Index')
-    plt.ylabel('Value')
-
-    plt.figure(1, facecolor = 'w')
-    plt.plot(range(iterations), results)
-
-    plt.savefig('./images/gamble/random_walk_%s.png' % (iterations), format = 'png')
-    plt.close()
 
 
 def main(argv):

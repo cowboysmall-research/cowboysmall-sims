@@ -1,13 +1,11 @@
 import sys
 import random
 
-import numpy             as np
-import matplotlib.pyplot as plt
-import statistics        as st
-
-from matplotlib import style
+import numpy as np
+import statistics as st
 
 from cowboysmall.sims.simulation import Simulation
+from examples.coin_toss import plot_results
 
 
 class CoinToss(Simulation):
@@ -25,22 +23,6 @@ class CoinToss(Simulation):
                 count  = 0
 
         data['results'].append(total)
-
-
-def plot_results(results, heads, bias):
-    style.use("ggplot")
-
-    plt.clf()
-    plt.title('Coint Toss: %s heads in a row - Histogram' % heads)
-
-    plt.xlabel('Tosses')
-    plt.ylabel('Proportion')
-
-    plt.figure(1, facecolor = 'w')
-    plt.hist(results, bins = int((np.max(results) - np.min(results)) / 2), density = True)
-
-    plt.savefig('./images/coin_toss/coin_toss_%s_%s_%s.png' % (heads, bias, len(results)), format = 'png')
-    plt.close()
 
 
 def main(argv):

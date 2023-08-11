@@ -54,10 +54,12 @@ def plot_results(results, pool_size):
 
 
 def main(argv):
+    np.random.seed(1337)
+
     pool_size  = int(argv[0])
     iterations = int(argv[1])
 
-    np.random.seed(1337)
+
 
     results = []
     for _ in range(iterations):

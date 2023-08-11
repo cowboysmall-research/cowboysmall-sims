@@ -1,10 +1,10 @@
 import sys
 import random
 
-import numpy             as np
-import matplotlib.pyplot as plt
+import numpy as np
 
 from cowboysmall.sims.simulation import Simulation, SimulationException
+from examples.gamble import plot_results
 
 
 class Gamble(Simulation):
@@ -18,20 +18,6 @@ class Gamble(Simulation):
                 data['results'][i + 1, 1] = data['results'][i, 1] * 2
         else:
             raise SimulationException('Termination of simulation steps')
-
-
-def plot_results(results, iterations, initial, margin):
-    plt.clf()
-    plt.title('Gamble: %s iterations' % iterations)
-
-    plt.xlabel('Index')
-    plt.ylabel('Value')
-
-    plt.figure(1, facecolor = 'w')
-    plt.plot(range(len(results)), results)
-
-    plt.savefig('./images/gamble/gamble_%s_%s_%s.png' % (iterations, initial, margin), format = 'png')
-    plt.close()
 
 
 def main(argv):

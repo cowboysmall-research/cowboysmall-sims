@@ -1,7 +1,6 @@
 import sys
 import random
 
-
 from cowboysmall.sims.simulation import Simulation
 
 

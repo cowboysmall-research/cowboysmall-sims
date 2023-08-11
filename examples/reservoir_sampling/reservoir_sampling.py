@@ -2,12 +2,10 @@ import sys
 import random
 import math
 
-import numpy             as np
-import matplotlib.pyplot as plt
-
-from matplotlib import style
+import numpy as np
 
 from cowboysmall.sims.simulation import Simulation
+from examples.reservoir_sampling import plot_results
 
 
 class ReservoirSampling(Simulation):
@@ -22,22 +20,6 @@ class ReservoirSampling(Simulation):
                 data['sample'][p] = data['population'][i]
             data['samples'][i - k, 0] = np.mean(data['sample'])
             data['samples'][i - k, 1] = np.std(data['sample'])
-
-
-def plot_results(results, size, k):
-    style.use("ggplot")
-
-    plt.clf()
-    plt.title('Reservoir Samples (k = %s)' % (k))
-
-    plt.xlabel('Sample Mean')
-    plt.ylabel('Proportion')
-
-    plt.figure(1, facecolor = 'w')
-    plt.hist(results[:, 0], bins = 25, density = True)
-
-    plt.savefig('./images/reservoir_sampling/reservoir_sampling_%s_%s.png' % (size, k), format = 'png')
-    plt.close()
 
 
 def main(argv):

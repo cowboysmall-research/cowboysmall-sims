@@ -1,10 +1,10 @@
 import sys
 import random
 
-import numpy             as np
-import matplotlib.pyplot as plt
+import numpy as np
 
 from cowboysmall.sims.simulation import Simulation
+from examples.pi import plot_results
 
 
 class Pi(Simulation):
@@ -15,22 +15,6 @@ class Pi(Simulation):
             data['inside'].append((x, y))
         else:
             data['outside'].append((x, y))
-
-
-def plot_results(inside, outside, iterations):
-    plt.clf()
-    plt.title('Pi: %s iterations' % iterations)
-
-    fig, ax = plt.subplots()
-
-    ax.scatter(inside[:, 0], inside[:, 1], c = 'blue', s = 1.0, label = 'inside')
-    ax.scatter(outside[:, 0], outside[:, 1], c = 'red', s = 1.0, label = 'outside')
-    ax.set_aspect('equal')
-    ax.legend(loc = 'upper right')
-    ax.grid(True)
-
-    plt.savefig('./images/pi/pi_%s.png' % (iterations), format = 'png')
-    plt.close()
 
 
 def main(argv):

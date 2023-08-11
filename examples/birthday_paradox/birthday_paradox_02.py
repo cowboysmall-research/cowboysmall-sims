@@ -1,13 +1,11 @@
 import sys
 import random
 
-import numpy             as np
-import matplotlib.pyplot as plt
-import statistics        as st
-
-from matplotlib import style
+import numpy as np
+import statistics as st
 
 from cowboysmall.sims.simulation import Simulation
+from examples.birthday_paradox import plot_results
 
 
 class BirthdayParadox(Simulation):
@@ -21,22 +19,6 @@ class BirthdayParadox(Simulation):
             counter += 1
 
         data['numbers'].append(counter)
-
-
-def plot_results(numbers):
-    style.use("ggplot")
-
-    plt.clf()
-    plt.title('Birthday Paradox - Histogram')
-
-    plt.xlabel('Number')
-    plt.ylabel('Proportion')
-
-    plt.figure(1, facecolor = 'w')
-    plt.hist(numbers, bins = int((np.max(numbers) - np.min(numbers)) / 2), density = True)
-
-    plt.savefig('./images/birthday_paradox/birthday_paradox_%s.png' % len(numbers), format = 'png')
-    plt.close()
 
 
 def main(argv):
