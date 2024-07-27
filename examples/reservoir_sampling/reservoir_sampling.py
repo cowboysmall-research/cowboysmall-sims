@@ -9,16 +9,16 @@ from examples.reservoir_sampling import plot_results
 
 class ReservoirSampling(Simulation):
 
-    def step(self, i: int, data: dict) -> None:
+    def step(self, iteration: int, data: dict) -> None:
         k = data['k']
-        if i < k:
-            data['sample'].append(data['population'][i])
+        if iteration < k:
+            data['sample'].append(data['population'][iteration])
         else:
-            p = np.random.randint(0, i)
+            p = np.random.randint(0, iteration)
             if p < k:
-                data['sample'][p] = data['population'][i]
-            data['samples'][i - k, 0] = np.mean(data['sample'])
-            data['samples'][i - k, 1] = np.std(data['sample'])
+                data['sample'][p] = data['population'][iteration]
+            data['samples'][iteration - k, 0] = np.mean(data['sample'])
+            data['samples'][iteration - k, 1] = np.std(data['sample'])
 
 
 def main(argv):

@@ -31,6 +31,9 @@ classifiers = [
 dependencies = [
   "numpy",
   "matplotlib",
+
+  "pyasyncore",
+  "pyasynchat",
 ]
 
 [project.urls]

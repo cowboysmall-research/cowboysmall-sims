@@ -7,7 +7,7 @@ from examples.random_walk import plot_results
 
 class RandomWalk(Simulation):
 
-    def step(self, i: int, data: dict) -> None:
+    def step(self, iteration: int, data: dict) -> None:
         if random.random() < 0.5:
             data['value'] += 1
         else:
